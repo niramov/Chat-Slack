@@ -2,15 +2,39 @@ import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import BasicSchema from '../utils/validatate.js';
 import { Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import routes from '../routes/routes.js';
+import useAuth from '../hooks/useAuth.js';
 
 const LoginPage = () => {
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  // const location = useLocation();
+  const navigate = useNavigate();
+  const auth = useAuth();
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: BasicSchema,
-    onSubmit: (values) => console.log(values),
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post(routes.loginPath(), values);
+        localStorage.setItem('userId', JSON.stringify(response.data));
+        auth.logIn();
+        console.log('loggedIn', auth);
+        console.log('ok!');
+        navigate('/');
+      } catch (error) {
+        if (error.isAxiosError && error.response.status === 401) {
+          auth.logOut();
+          return false;
+        }
+        throw error;
+      }
+    },
   });
-  const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
