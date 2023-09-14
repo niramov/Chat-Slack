@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import BasicSchema from '../utils/validatate.js';
 import { Button, Form } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import routes from '../routes/routes.js';
 import useAuth from '../hooks/useAuth.js';
 
 const LoginPage = () => {
+  const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
@@ -23,11 +24,11 @@ const LoginPage = () => {
         const response = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(response.data));
         auth.logIn();
-        console.log('loggedIn', auth);
-        console.log('ok!');
+        setAuthFailed(false);
         navigate('/');
       } catch (error) {
         if (error.isAxiosError && error.response.status === 401) {
+          setAuthFailed(true);
           auth.logOut();
           return false;
         }
@@ -68,9 +69,11 @@ const LoginPage = () => {
                     onChange={handleChange}
                     value={values.password}
                     type='password'
-                    isInvalid={touched.password && errors.password}
+                    isInvalid={(touched.password && errors.password) || authFailed}
                   />
-                  <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>
+                    {errors.password ?? 'Нет такого пользователя'}
+                  </Form.Control.Feedback>
                   <Form.Label htmlFor='password'>Ваш пароль</Form.Label>
                 </Form.Group>
                 <Button className='w-100 mb-3' variant='primary' type='submit'>
