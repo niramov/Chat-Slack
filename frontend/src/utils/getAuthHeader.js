@@ -3,7 +3,7 @@ const getAuthHeader = () => {
 
   if (user && user.token) {
     console.log('token', user.token);
-    return { Authorization: `Bearer: ${user.token}` };
+    return { Authorization: `Bearer ${user.token}` };
   }
   return {};
 };
