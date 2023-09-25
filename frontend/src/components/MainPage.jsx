@@ -5,7 +5,10 @@ import axios from 'axios';
 import getAuthHeader from '../utils/getAuthHeader';
 import useAuth from '../hooks/useAuth';
 import { useSelector, useDispatch } from 'react-redux';
-import { addChannel, addChannels } from '../store/chanelsSlice';
+import { addChannels } from '../store/chanelsSlice';
+import { addMessages } from '../store/messagesSlice';
+import Channels from './Channels';
+import Header from './chat/Header';
 
 const MainPage = () => {
   const [chatData, setChatData] = useState(null);
@@ -22,7 +25,7 @@ const MainPage = () => {
         const headers = getAuthHeader();
         const response = await axios.get(routes.usersPath(), { headers });
         dispatch(addChannels(response.data.channels));
-        console.log('response chatData', response.data);
+        dispatch(addMessages(response.data.messages));
         setChatData(response);
       } catch (error) {
         console.error('Ошибка авторизации', error.message);
@@ -32,9 +35,16 @@ const MainPage = () => {
     getData();
   }, []);
 
-  const channels = useSelector((state) => state.channels.entities);
-  console.log('channels!!!', channels);
+  const channels = useSelector((state) => Object.values(state.channels.entities));
 
-  return <div>Chat</div>;
+  return (
+    <div>
+      {/* Chat */}
+      <Channels />
+      <div className='flex-grow-1'>
+        <Header />
+      </div>
+    </div>
+  );
 };
 export default MainPage;
