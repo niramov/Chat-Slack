@@ -20,22 +20,13 @@ const channelsSlice = createSlice({
     },
     renameChannel: channelsAdapter.updateOne,
     removeChannel: channelsAdapter.removeOne,
-    getCurrentChannelName: (state) => {
-      const currentChannel = Object.values(state.entities).find((ch) => ch.id === state.currentChannelId);
-      return currentChannel.name;
-    },
+    // getCurrentChannelName: (state) => {
+    //   const currentChannel = Object.values(state.entities).find((ch) => ch.id === state.currentChannelId);
+    //   return currentChannel.name;
+    // },
   },
 });
 
-export const {
-  addChannel,
-  addChannels,
-  setCurrentChannel,
-  renameChannel,
-  removeChannel,
-  getCurrentChannelName,
-  getCurrentChannelId,
-} = channelsSlice.actions;
-console.log('reducer', channelsSlice.reducer);
+export const { addChannel, addChannels, setCurrentChannel, renameChannel, removeChannel } = channelsSlice.actions;
 
 export default channelsSlice.reducer;

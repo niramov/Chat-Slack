@@ -17,13 +17,15 @@ const MainPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (auth.loggedIn === false) {
-      navigate('login');
-    }
+    // if (auth.loggedIn === false) {
+    //   navigate('login');
+    // }
     const getData = async () => {
       try {
+        console.log('fetching!!!!');
         const headers = getAuthHeader();
         const response = await axios.get(routes.usersPath(), { headers });
+        console.log('response', response.data);
         dispatch(addChannels(response.data.channels));
         dispatch(addMessages(response.data.messages));
         setChatData(response);
@@ -35,7 +37,8 @@ const MainPage = () => {
     getData();
   }, []);
 
-  const channels = useSelector((state) => Object.values(state.channels.entities));
+  // const channels = useSelector((state) => Object.values(state.channels.entities));
+  // console.log('channels use', channels);
 
   return (
     <div>
