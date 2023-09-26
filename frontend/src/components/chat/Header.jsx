@@ -11,7 +11,7 @@ const Header = () => {
       <p className='m-0'>
         <b># {currentChannelName}</b>
       </p>
-      <span className='text-muted'> {count} Сообщений</span>
+      <span className='text-muted'> {count.length} Сообщений</span>
     </div>
   );
 };

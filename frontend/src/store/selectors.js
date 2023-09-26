@@ -8,7 +8,7 @@ const getMessages = (state) => {
 const getChannels = (state) => state.channels.entities;
 
 export const getCurrentChannelMessages = createSelector([currentChannelId, getMessages], (id, messages) => {
-  return Object.values(messages).filter((msg) => msg.id === id).length;
+  return Object.values(messages).filter((msg) => msg.id === id);
 });
 
 export const getChannelsName = createSelector([getChannels, currentChannelId], (channels, id) => {
