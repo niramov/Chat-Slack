@@ -23,15 +23,12 @@ const MainPage = () => {
     }
     const getData = async () => {
       try {
-        console.log('fetching!!!!');
         const headers = getAuthHeader();
         const response = await axios.get(routes.usersPath(), { headers });
-        console.log('response', response.data);
         dispatch(addChannels(response.data.channels));
         dispatch(addMessages(response.data.messages));
         setChatData(response);
       } catch (error) {
-        console.error('Ошибка авторизации', error.message);
         navigate('login');
       }
     };

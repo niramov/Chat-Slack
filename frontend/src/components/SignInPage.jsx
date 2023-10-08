@@ -22,8 +22,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), values);
-        localStorage.setItem('userId', JSON.stringify(response.data));
-        console.log('localStorage2', localStorage.getItem('userId'));
+        auth.setUserId(response);
         auth.logIn();
         setAuthFailed(false);
         navigate('/');

@@ -60,7 +60,10 @@ const Channels = () => {
     <Col className='col-4 col-md-2 border-end px-0 bg-light flex-column d-flex'>
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
         <b>Каналы</b>
-        <Button /* onClick={handleAdd()} */ variant='link' className='p-0 text-primary btn-group-vertical'>
+        <Button
+          /* onClick={handleAdd()} */ variant='link'
+          className='p-0 text-primary btn-group-vertical text-decoration-none'
+        >
           +
         </Button>
       </div>

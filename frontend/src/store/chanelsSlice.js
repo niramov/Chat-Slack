@@ -6,8 +6,6 @@ const initialState = channelsAdapter.getInitialState({
   currentDefaultChannel: 1,
 });
 
-console.log('initialState', initialState);
-
 const channelsSlice = createSlice({
   name: 'channels',
   initialState,
@@ -20,10 +18,6 @@ const channelsSlice = createSlice({
     },
     renameChannel: channelsAdapter.updateOne,
     removeChannel: channelsAdapter.removeOne,
-    // getCurrentChannelName: (state) => {
-    //   const currentChannel = Object.values(state.entities).find((ch) => ch.id === state.currentChannelId);
-    //   return currentChannel.name;
-    // },
   },
 });
 

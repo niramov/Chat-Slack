@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 const Header = () => {
   const currentChannelName = useSelector(getChannelsName);
   const count = useSelector(getCurrentChannelMessages);
-  console.log('count', count);
   return (
     <div className='bg-light mb-4 p-3 shadow-sm small"'>
       <p className='m-0'>
