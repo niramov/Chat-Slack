@@ -11,6 +11,7 @@ const MessagesContextProvider = ({ children }) => {
 
   useEffect(() => {
     socket.on('newMessage', (newMessage) => {
+      console.log('newMessage', newMessage);
       dispatch(addMessage(newMessage));
     });
   }, [socket]);

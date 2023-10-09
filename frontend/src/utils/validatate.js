@@ -13,10 +13,9 @@ const SignUpSchema = Yup.object().shape({
     .min(2, 'Must be longer than 2 characters')
     .max(20, 'Must be no longer than 20 characters')
     .required('Required'),
-  password: Yup.string().min(5, 'Must be at least 5 charachters length').required('Requred'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('passowd')], 'Пароль должен совпадать')
-    .required('Обязательное поле'),
+  password: Yup.string().min(5, 'Must be at least 5 charachters length').required('Required'),
+  passwordConfirm: Yup.string().oneOf([Yup.ref('password')], 'Пароль должен совпадать'),
+  // .required('Обязательное поле'),
 });
 
 export { SignInSchema, SignUpSchema };
