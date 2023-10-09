@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Card, Row } from 'react-bootstrap';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './SignUpForm.jsx';
 
 const SignUpPage = () => {
   return (

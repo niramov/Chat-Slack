@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import BasicSchema from '../utils/validatate.js';
+import { SignInSchema } from '../utils/validatate.js';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const LoginPage = () => {
   const auth = useAuth();
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    validationSchema: BasicSchema,
+    validationSchema: SignInSchema,
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), values);
