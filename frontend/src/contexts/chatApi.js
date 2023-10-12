@@ -2,10 +2,11 @@ import React, { createContext, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import SocketContext from './socketContext';
 import { addMessage } from '../store/messagesSlice';
+import { addChannel } from '../store/chanelsSlice';
 
-const MessagesContext = createContext();
+export const ChatApiContext = createContext();
 
-const MessagesContextProvider = ({ children }) => {
+const ChatContextProvider = ({ children }) => {
   const socket = useContext(SocketContext);
   const dispatch = useDispatch();
 
@@ -14,13 +15,23 @@ const MessagesContextProvider = ({ children }) => {
       console.log('newMessage', newMessage);
       dispatch(addMessage(newMessage));
     });
+    socket.on('newChannel', (newChannel) => {
+      console.log('newChannel', newChannel);
+      dispatch(addChannel(newChannel));
+    });
   }, [socket]);
 
   const addNewMessage = (message) => {
     socket.emit('newMessage', message);
   };
 
-  return <MessagesContext.Provider value={addNewMessage}>{children}</MessagesContext.Provider>;
+  const addNewChannel = (channel) => {
+    socket.emit('newChannel', channel);
+  };
+
+  const value = { addNewMessage, addNewChannel };
+
+  return <ChatApiContext.Provider value={value}>{children}</ChatApiContext.Provider>;
 };
 
-export { MessagesContext, MessagesContextProvider };
+export default ChatContextProvider;

@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import { io } from 'socket.io-client';
 import SocketContext from './contexts/socketContext';
-import { MessagesContextProvider } from './contexts/messagesContext';
+import ChatContextProvider from './contexts/chatApi';
 import SignUpPage from './components/SignUpPage';
 
 const socket = io('http://localhost:3000');
@@ -19,7 +19,7 @@ function App() {
   return (
     <Provider store={store}>
       <SocketContext.Provider value={socket}>
-        <MessagesContextProvider>
+        <ChatContextProvider>
           <AuthProvider>
             <BrowserRouter>
               <Routes>
@@ -32,7 +32,7 @@ function App() {
               </Routes>
             </BrowserRouter>
           </AuthProvider>
-        </MessagesContextProvider>
+        </ChatContextProvider>
       </SocketContext.Provider>
     </Provider>
   );

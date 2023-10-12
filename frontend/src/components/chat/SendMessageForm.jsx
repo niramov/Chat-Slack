@@ -2,20 +2,17 @@ import React, { useEffect, useContext, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getCurrentChannelId } from '../../store/selectors';
 import { Form, Button, InputGroup } from 'react-bootstrap';
-import SocketContext from '../../contexts/socketContext';
 import useAuth from '../../hooks/useAuth';
-import { MessagesContext } from '../../contexts/messagesContext';
+import useChatApi from '../../hooks/useChatApi';
 
 const SendMessageForm = () => {
   const [inputData, setInputData] = useState('');
   const inputRef = useRef(null);
-  const socket = useContext(SocketContext);
-  const sendMessage = useContext(MessagesContext);
+  const api = useChatApi();
   const auth = useAuth();
   const username = auth.getUserName();
   const currentChannelId = useSelector(getCurrentChannelId);
 
-  // Добавить хэндлер с отправкой сообщения
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputData !== '') {
@@ -24,7 +21,7 @@ const SendMessageForm = () => {
         channelId: currentChannelId,
         username,
       };
-      sendMessage(data);
+      api.addNewMessage(data);
       setInputData('');
       inputRef.current.focus();
     }
