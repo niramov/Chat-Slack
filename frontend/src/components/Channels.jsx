@@ -12,7 +12,7 @@ const Channels = () => {
   const hideModal = () => setModalInfo({ type: null, item: null });
   const dispatch = useDispatch();
   const channels = useSelector(getChannels);
-  // const channelsNames = Object.values(channels);
+  const channelsNames = Object.values(channels);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
 
   const handleClick = (type, item = null) => {
@@ -28,7 +28,7 @@ const Channels = () => {
     return <Modal hideModal={hideModal} modalInfo={modalInfo} setModalInfo={setModalInfo} />;
   };
   const channelsList = () => {
-    return channels.map(({ name, id, removable }) => {
+    return channelsNames.map(({ name, id, removable }) => {
       const btnClasses = cn('btn', {
         'btn-secondary': currentChannelId === id,
       });

@@ -12,8 +12,8 @@ const Rename = ({ hideModal, modalInfo }) => {
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
-  // const channelsList = Object.values(channels);
-  const channelsNames = channels.map(({ name }) => name);
+  const channelsList = Object.values(channels);
+  const channelsNames = channelsList.map(({ name }) => name);
 
   useEffect(() => {
     inputRef.current.focus();
