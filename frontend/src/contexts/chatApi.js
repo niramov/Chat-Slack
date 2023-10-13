@@ -17,9 +17,9 @@ const ChatContextProvider = ({ children }) => {
     socket.on('newChannel', (newChannel) => {
       dispatch(addChannel(newChannel));
     });
-    socket.on('renameChannel', (channel) => {
-      console.log('renamedChannel', channel);
-      dispatch(renameChannel(channel));
+    socket.on('renameChannel', ({ id, name }) => {
+      // console.log('renamedChannel', channel);
+      dispatch(renameChannel({ id, changes: { name } }));
     });
   }, [socket]);
 
