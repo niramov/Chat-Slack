@@ -4,7 +4,6 @@ import { getCurrentChannelMessages } from '../../store/selectors';
 
 const MessagesList = () => {
   const messages = useSelector(getCurrentChannelMessages);
-  console.log('currentMessages', messages);
 
   return (
     <div className='chat-messages overflow-auto px-5'>

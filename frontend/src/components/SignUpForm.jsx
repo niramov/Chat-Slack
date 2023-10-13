@@ -23,16 +23,13 @@ const SignUpForm = () => {
     validationSchema: SignUpSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        console.log('values', values);
         const { username, password } = values;
         const newUserData = { username, password };
         const response = await axios.post(routes.signUpPath(), newUserData);
-        console.log('response', response);
         auth.setUserId(response);
         auth.logIn();
         navigate('/');
       } catch (error) {
-        console.log('error', error.response);
         if (error.isAxiosError && error.response.status === 409) {
           auth.logOut();
           setUserStatus(true);
@@ -89,7 +86,7 @@ const SignUpForm = () => {
           isInvalid={touched.passwordConfirm || !!errors.passwordConfirm || authFailed}
         />
         <Form.Label htmlFor='passwordConfirm'>Подтверждение пароля</Form.Label>
-        <Form.Control.Feedback>
+        <Form.Control.Feedback type='invalid'>
           {errors.passwordConfirm ? <div>{errors.passwordConfirm}</div> : null}
         </Form.Control.Feedback>
       </Form.Group>

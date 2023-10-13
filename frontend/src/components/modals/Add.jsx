@@ -6,12 +6,12 @@ import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
 import * as Yup from 'yup';
 
-const Add = ({ hideModal, modalInfo, setModalInfo }) => {
+const Add = ({ hideModal }) => {
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
-  const channelsNames = channels.map(({ name }) => name);
-  console.log('channelsNames', channelsNames);
+  const channelsList = Object.values(channels);
+  const channelsNames = channelsList.map(({ name }) => name);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -19,7 +19,6 @@ const Add = ({ hideModal, modalInfo, setModalInfo }) => {
 
   const sendChannelName = (values) => {
     const channelName = { name: values.name };
-    console.log('channelName', channelName);
     api.addNewChannel(channelName);
     hideModal();
   };
@@ -28,7 +27,6 @@ const Add = ({ hideModal, modalInfo, setModalInfo }) => {
     name: Yup.string()
       .min(1, 'Must be longer than 1 characters')
       .max(20, 'Must be no longer than 20 characters')
-      .required('Required')
       .notOneOf(channelsNames, 'Должно быть уникальным'),
   });
 

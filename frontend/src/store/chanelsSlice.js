@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 const channelsAdapter = createEntityAdapter();
 const initialState = channelsAdapter.getInitialState({
@@ -13,7 +13,6 @@ const channelsSlice = createSlice({
     addChannel: channelsAdapter.addOne,
     addChannels: channelsAdapter.addMany,
     setCurrentChannel: (state, { payload }) => {
-      console.log('currentState', current(state));
       state.currentChannelId = payload;
     },
     renameChannel: channelsAdapter.updateOne,

@@ -4,10 +4,13 @@ export const getCurrentChannelId = (state) => state.channels.currentChannelId;
 const getMessages = (state) => {
   return state.messages.entities;
 };
-export const getChannels = (state) => Object.values(state.channels.entities);
+
+export const getChannels = (state) => {
+  const channels = Object.values(state.channels.entities);
+  return channels;
+};
 
 export const getCurrentChannelMessages = createSelector([getCurrentChannelId, getMessages], (id, messages) => {
-  console.log('id', id, 'messages', messages);
   return Object.values(messages).filter((msg) => msg.channelId === id);
 });
 

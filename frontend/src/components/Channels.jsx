@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import { Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
-import { setCurrentChannel, removeChannel, renameChannel } from '../store/chanelsSlice';
+import { setCurrentChannel } from '../store/chanelsSlice';
 import getModal from './modals';
+import { getChannels } from '../store/selectors';
 
 const Channels = () => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  const showModal = (type, item = null) => setModalInfo({ type, item });
+  // const showModal = (type, item = null) => setModalInfo({ type, item });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const dispatch = useDispatch();
-  const channels = useSelector((state) => Object.values(state.channels.entities));
+  const channels = useSelector(getChannels);
+  // const channelsNames = Object.values(channels);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
-  const handleRemove = (id) => removeChannel(id);
-  const handleRename = (id) => renameChannel(id);
 
   const handleClick = (type, item = null) => {
     setModalInfo({ type, item });
@@ -29,7 +29,6 @@ const Channels = () => {
   };
   const channelsList = () => {
     return channels.map(({ name, id, removable }) => {
-      console.log('channels!!!', channels);
       const btnClasses = cn('btn', {
         'btn-secondary': currentChannelId === id,
       });
@@ -65,8 +64,8 @@ const Channels = () => {
                 <span className='visually-hidden'>Изменить</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={handleRemove(id)}>Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={handleRename(id)}>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleClick('removing', { id })}>Удалить</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>Переименовать</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
