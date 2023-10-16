@@ -2,10 +2,9 @@ import React, { createContext, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import SocketContext from './socketContext';
 import { addMessage } from '../store/messagesSlice';
-import { addChannel, removeChannel, renameChannel } from '../store/chanelsSlice';
+import { addChannel, removeChannel, renameChannel, setDefaultChannel } from '../store/chanelsSlice';
 
 export const ChatApiContext = createContext();
-// написать удаление сообщений выбранного канала через extraReducеrs
 // и перенесение пользователей в дефолтный канал
 const ChatContextProvider = ({ children }) => {
   const socket = useContext(SocketContext);
@@ -22,6 +21,7 @@ const ChatContextProvider = ({ children }) => {
       dispatch(renameChannel({ id, changes: { name } }));
     });
     socket.on('removeChannel', (data) => {
+      dispatch(setDefaultChannel(data.id));
       dispatch(removeChannel(data.id));
     });
   }, [socket]);
