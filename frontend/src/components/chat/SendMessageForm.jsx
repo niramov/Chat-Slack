@@ -1,11 +1,13 @@
-import React, { useEffect, useContext, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { getCurrentChannelId } from '../../store/selectors';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
+import { useTranslation } from 'react-i18next';
 
 const SendMessageForm = () => {
+  const { t } = useTranslation();
   const [inputData, setInputData] = useState('');
   const inputRef = useRef(null);
   const api = useChatApi();
@@ -36,7 +38,7 @@ const SendMessageForm = () => {
       <Form className='py-1 border rounded-2' onSubmit={handleSubmit}>
         <InputGroup className='mb-0'>
           <Form.Control
-            placeholder='Введите сообщение'
+            placeholder={t('message.placeholder')}
             className='border-0 p-0 ps-1'
             aria-label='Send message'
             aria-describedby='basic-addon2'
@@ -46,7 +48,7 @@ const SendMessageForm = () => {
             ref={inputRef}
           />
           <Button variant='group-vertical' id='sendMessageButton' type='submit' className='btn-group-vertical '>
-            Отправить
+            {t('messages.send')}
           </Button>
         </InputGroup>
       </Form>

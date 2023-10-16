@@ -1,8 +1,10 @@
 import React from 'react';
 import { getChannelsName, getCurrentChannelMessages } from '../../store/selectors';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+  const { t } = useTranslation();
   const currentChannelName = useSelector(getChannelsName);
   const count = useSelector(getCurrentChannelMessages);
   return (
@@ -10,7 +12,7 @@ const Header = () => {
       <p className='m-0'>
         <b># {currentChannelName}</b>
       </p>
-      <span className='text-muted'> {count.length} Сообщений</span>
+      <span className='text-muted'> {t('message.messages', { count: count.length })}</span>
     </div>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import useChatApi from '../../hooks/useChatApi';
+import { useTranslation } from 'react-i18next';
 
 const Rename = ({ hideModal, modalInfo }) => {
-  console.log('modalInfo.item.id ', modalInfo.item.id);
+  const { t } = useTranslation();
   const api = useChatApi();
 
   const removeChannel = () => {
@@ -14,17 +15,17 @@ const Rename = ({ hideModal, modalInfo }) => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={hideModal}>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.removeTitle')}</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>Уверены?</Modal.Body>
+      <Modal.Body>{t('modals.sure')}</Modal.Body>
       <Modal.Footer>
         <div className='d-flex justify-content-end'>
           <Button type='button' onClick={hideModal} variant='primary' className='btn btn-primary me-2 mt-2'>
-            Отменить
+            {t('modals.cancellButton')}
           </Button>
           <Button type='submit' onClick={removeChannel} variant='primary' className='btn btn-primary mt-2'>
-            Удалить
+            {t('modals.confirmRemove')}
           </Button>
         </div>
       </Modal.Footer>

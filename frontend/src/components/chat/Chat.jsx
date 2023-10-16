@@ -1,4 +1,4 @@
-import Reac from 'react';
+import React from 'react';
 import Header from './Header';
 import Body from './Body';
 import SendMessageForm from './SendMessageForm';

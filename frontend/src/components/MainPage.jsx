@@ -45,6 +45,3 @@ const MainPage = () => {
   );
 };
 export default MainPage;
-
-//vh-100 my-0 overflow-hidden rounded shadow
-// row h-100 bg-white flex-md-row

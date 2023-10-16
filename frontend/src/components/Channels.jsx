@@ -5,10 +5,11 @@ import cn from 'classnames';
 import { setCurrentChannel } from '../store/chanelsSlice';
 import getModal from './modals';
 import { getChannels } from '../store/selectors';
+import { useTranslation } from 'react-i18next';
 
 const Channels = () => {
+  const { t } = useTranslation();
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  // const showModal = (type, item = null) => setModalInfo({ type, item });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const dispatch = useDispatch();
   const channels = useSelector(getChannels);
@@ -64,8 +65,10 @@ const Channels = () => {
                 <span className='visually-hidden'>Изменить</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleClick('removing', { id })}>Удалить</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>Переименовать</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleClick('removing', { id })}>{t('channel.delete')}</Dropdown.Item>
+                <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>
+                  {t('channel.rename')}
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
@@ -77,7 +80,7 @@ const Channels = () => {
   return (
     <Col className='col-4 col-md-2 border-end px-0 bg-light flex-column d-flex'>
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
-        <b>Каналы</b>
+        <b>{t('channel.channels')}</b>
         <Button
           onClick={() => handleClick('adding')}
           variant='link'

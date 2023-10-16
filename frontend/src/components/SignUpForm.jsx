@@ -6,8 +6,10 @@ import routes from '../routes/routes';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const [authFailed, setAuthStatus] = useState(false);
   const [isUserExist, setUserStatus] = useState(false);
   const inputRef = useRef(null);
@@ -19,14 +21,11 @@ const SignUpForm = () => {
   }, []);
 
   const SignUpSchema = Yup.object().shape({
-    username: Yup.string()
-      .required('Required')
-      .min(3, 'Must be longer than 2 characters')
-      .max(20, 'Must be no longer than 20 characters'),
-    password: Yup.string().min(6, 'Must be at least 5 charachters length').required('Required'),
+    username: Yup.string().required(t('schema.requried')).min(3, t('schema.nameMin')).max(20, t('schema.nameMax')),
+    password: Yup.string().min(6, t('schema.passwordMin')).required('schema.required'),
     passwordConfirm: Yup.string()
-      .required('Обязательное поле')
-      .oneOf([Yup.ref('password'), null], 'Пароль должен совпадать'),
+      .required(t('schema.required'))
+      .oneOf([Yup.ref('password'), null], t('schema.passwordConfirm')),
   });
 
   const formik = useFormik({
@@ -61,7 +60,7 @@ const SignUpForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 className='text-center mb-4'>Регистрация</h2>
+      <h2 className='text-center mb-4'>{t('signup.register')}</h2>
       <Form.Group className='form-floating mb-3'>
         <Form.Control
           id='username'
@@ -72,7 +71,7 @@ const SignUpForm = () => {
           ref={inputRef}
           isInvalid={(touched.username && !!errors.username) || isUserExist || authFailed}
         />
-        <Form.Label htmlFor='username'>Имя пользователя</Form.Label>
+        <Form.Label htmlFor='username'>{t('signup.name')}</Form.Label>
         <Form.Control.Feedback>{errors.username ? <div>{errors.username}</div> : null}</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='form-floating mb-4'>
@@ -84,7 +83,7 @@ const SignUpForm = () => {
           type='password'
           isInvalid={(touched.password && !!errors.password) || authFailed}
         />
-        <Form.Label htmlFor='password'>Пароль</Form.Label>
+        <Form.Label htmlFor='password'>{t('signup.password')}</Form.Label>
         <Form.Control.Feedback>{errors.password ? <div>{errors.password}</div> : null}</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='form-floating mb-4'>
@@ -96,13 +95,13 @@ const SignUpForm = () => {
           type='password'
           isInvalid={(touched.passwordConfirm && !!errors.passwordConfirm) || authFailed}
         />
-        <Form.Label htmlFor='passwordConfirm'>Подтверждение пароля</Form.Label>
+        <Form.Label htmlFor='passwordConfirm'>{t('signup.passwordConfirm')}</Form.Label>
         <Form.Control.Feedback type='invalid'>
           {errors.passwordConfirm ? <div>{errors.passwordConfirm}</div> : null}
         </Form.Control.Feedback>
       </Form.Group>
       <Button disabled={isSubmitting} className='w-100 mb-3' variant='primary' type='submit'>
-        Подтвердить
+        {t('signup.confirm')}
       </Button>
     </Form>
   );

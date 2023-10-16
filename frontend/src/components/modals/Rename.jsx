@@ -5,10 +5,10 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
-// настроить отправку данных для перименования, сейчас modalInfo хранит id и name
 const Rename = ({ hideModal, modalInfo }) => {
-  console.log('modalInfo', modalInfo);
+  const { t } = useTranslation();
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
@@ -28,9 +28,9 @@ const Rename = ({ hideModal, modalInfo }) => {
 
   const RenameSchema = Yup.object().shape({
     name: Yup.string()
-      .min(1, 'Must be longer than 1 characters')
-      .max(20, 'Must be no longer than 20 characters')
-      .notOneOf(channelsNames, 'Должно быть уникальным'),
+      .min(1, t('modals.minName'))
+      .max(20, t('modals.maxName'))
+      .notOneOf(channelsNames, t('modals.uniq')),
   });
 
   const formik = useFormik({
@@ -44,7 +44,7 @@ const Rename = ({ hideModal, modalInfo }) => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={hideModal}>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.renameTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -61,10 +61,10 @@ const Rename = ({ hideModal, modalInfo }) => {
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
               <Button type='button' onClick={hideModal} variant='primary' className='btn btn-primary me-2 mt-2'>
-                Отменить
+                {t('modals.cancellButton')}
               </Button>
               <Button type='submit' variant='primary' className='btn btn-primary mt-2'>
-                Подтвердить
+                {t('modals.confirmButton')}
               </Button>
             </div>
           </Form.Group>

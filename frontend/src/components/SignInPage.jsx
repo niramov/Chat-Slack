@@ -6,8 +6,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import routes from '../routes/routes.js';
 import useAuth from '../hooks/useAuth.js';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [authFailed, setAuthFailed] = useState(false);
   const inputRef = useRef();
   useEffect(() => {
@@ -18,11 +20,8 @@ const LoginPage = () => {
   const auth = useAuth();
 
   const SignInSchema = Yup.object().shape({
-    username: Yup.string()
-      .min(2, 'Must be longer than 2 characters')
-      .max(20, 'Must be no longer than 20 characters')
-      .required('Required'),
-    password: Yup.string().min(5, 'Must be at least 5 charachters length').required('Required'),
+    username: Yup.string().min(3, t('schema.nameMin')).max(20, t('schema.nameMax')).required(t('schema.required')),
+    password: Yup.string().min(6, t('schema.passwordMin')).required(t('schema.required')),
   });
 
   const formik = useFormik({
@@ -58,7 +57,7 @@ const LoginPage = () => {
           <div className='card shadow-sm'>
             <div className='card-body row p-5'>
               <Form className='form-container mt-3 mt-mb-0' onSubmit={handleSubmit}>
-                <h2 className='text-center mb-4'>Войти</h2>
+                <h2 className='text-center mb-4'>{t('login.enter')}</h2>
                 <Form.Group className='form-floating mb-3'>
                   <Form.Control
                     id='username'
@@ -70,7 +69,7 @@ const LoginPage = () => {
                     isInvalid={touched.username && errors.username}
                   />
                   <Form.Control.Feedback type='invalid'>{errors.username}</Form.Control.Feedback>
-                  <Form.Label htmlFor='username'>Ваш ник</Form.Label>
+                  <Form.Label htmlFor='username'>{t('login.name')}</Form.Label>
                 </Form.Group>
                 <Form.Group className='form-floating mb-3'>
                   <Form.Control
@@ -84,7 +83,7 @@ const LoginPage = () => {
                   <Form.Control.Feedback type='invalid'>
                     {errors.password ?? 'Нет такого пользователя'}
                   </Form.Control.Feedback>
-                  <Form.Label htmlFor='password'>Ваш пароль</Form.Label>
+                  <Form.Label htmlFor='password'>{t('login.password')}</Form.Label>
                 </Form.Group>
                 <Button className='w-100 mb-3' variant='primary' type='submit'>
                   Войти
@@ -96,7 +95,7 @@ const LoginPage = () => {
       </div>
       <div className='card-footer p-4'>
         <div className='text-center'>
-          <span>Нет аккаунта?</span> <Link to='/signup'>Регистрация</Link>
+          <span>{t('login.noAccount')}</span> <Link to='/signup'>{t('login.register')}</Link>
         </div>
       </div>
     </div>
