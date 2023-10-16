@@ -12,7 +12,7 @@ const Header = () => {
       <p className='m-0'>
         <b># {currentChannelName}</b>
       </p>
-      <span className='text-muted'> {t('message.messages', { count: count.length })}</span>
+      <span className='text-muted'> {t('messages.message', { count: count.length })}</span>
     </div>
   );
 };

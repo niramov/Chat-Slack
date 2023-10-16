@@ -38,7 +38,7 @@ const SendMessageForm = () => {
       <Form className='py-1 border rounded-2' onSubmit={handleSubmit}>
         <InputGroup className='mb-0'>
           <Form.Control
-            placeholder={t('message.placeholder')}
+            placeholder={t('messages.placeholder')}
             className='border-0 p-0 ps-1'
             aria-label='Send message'
             aria-describedby='basic-addon2'

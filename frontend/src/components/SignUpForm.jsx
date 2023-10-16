@@ -25,7 +25,7 @@ const SignUpForm = () => {
     password: Yup.string().min(6, t('schema.passwordMin')).required('schema.required'),
     passwordConfirm: Yup.string()
       .required(t('schema.required'))
-      .oneOf([Yup.ref('password'), null], t('schema.passwordConfirm')),
+      .oneOf([Yup.ref('password'), null], t('schema.confirmPassword')),
   });
 
   const formik = useFormik({
@@ -84,7 +84,9 @@ const SignUpForm = () => {
           isInvalid={(touched.password && !!errors.password) || authFailed}
         />
         <Form.Label htmlFor='password'>{t('signup.password')}</Form.Label>
-        <Form.Control.Feedback>{errors.password ? <div>{errors.password}</div> : null}</Form.Control.Feedback>
+        <Form.Control.Feedback type='invalid'>
+          {errors.password ? <div>{errors.password}</div> : null}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='form-floating mb-4'>
         <Form.Control
