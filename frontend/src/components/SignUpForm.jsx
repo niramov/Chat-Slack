@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { SignUpSchema } from '../utils/validatate';
+import * as Yup from 'yup';
 import routes from '../routes/routes';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
@@ -17,6 +17,17 @@ const SignUpForm = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+
+  const SignUpSchema = Yup.object().shape({
+    username: Yup.string()
+      .required('Required')
+      .min(3, 'Must be longer than 2 characters')
+      .max(20, 'Must be no longer than 20 characters'),
+    password: Yup.string().min(6, 'Must be at least 5 charachters length').required('Required'),
+    passwordConfirm: Yup.string()
+      .required('Обязательное поле')
+      .oneOf([Yup.ref('password'), null], 'Пароль должен совпадать'),
+  });
 
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
@@ -83,7 +94,7 @@ const SignUpForm = () => {
           onChange={handleChange}
           value={values.passwordConfirm}
           type='password'
-          isInvalid={touched.passwordConfirm || !!errors.passwordConfirm || authFailed}
+          isInvalid={(touched.passwordConfirm && !!errors.passwordConfirm) || authFailed}
         />
         <Form.Label htmlFor='passwordConfirm'>Подтверждение пароля</Form.Label>
         <Form.Control.Feedback type='invalid'>

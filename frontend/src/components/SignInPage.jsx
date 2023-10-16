@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { SignInSchema } from '../utils/validatate.js';
+import * as Yup from 'yup';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -16,6 +16,15 @@ const LoginPage = () => {
   // const location = useLocation();
   const navigate = useNavigate();
   const auth = useAuth();
+
+  const SignInSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(2, 'Must be longer than 2 characters')
+      .max(20, 'Must be no longer than 20 characters')
+      .required('Required'),
+    password: Yup.string().min(5, 'Must be at least 5 charachters length').required('Required'),
+  });
+
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: SignInSchema,
