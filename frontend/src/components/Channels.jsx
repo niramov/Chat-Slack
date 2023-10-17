@@ -89,7 +89,7 @@ const Channels = () => {
           +
         </Button>
       </div>
-      <ul className='nav flex-column nav-pills nav-fill px-2 mb-3 d-block'>{channelsList()}</ul>
+      <ul className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'>{channelsList()}</ul>
       {renderModal({ hideModal, modalInfo, setModalInfo })}
     </Col>
   );
