@@ -20,8 +20,8 @@ const LoginPage = () => {
   const auth = useAuth();
 
   const SignInSchema = Yup.object().shape({
-    username: Yup.string().min(3, t('schema.nameMin')).max(20, t('schema.nameMax')).required(t('schema.required')),
-    password: Yup.string().min(5, t('schema.passwordMin')).required(t('schema.required')),
+    username: Yup.string().required(t('schema.required')),
+    password: Yup.string().required(t('schema.required')),
   });
 
   const formik = useFormik({
