@@ -19,7 +19,7 @@ const ru = {
       message_few: '{{count}} сообщения',
       message_many: '{{count}} сообщений',
       send: 'Отправить',
-      placeholder: 'Введите сообщение',
+      placeholder: 'Введите сообщение...',
     },
     modals: {
       addTitle: 'Добавить канал',
