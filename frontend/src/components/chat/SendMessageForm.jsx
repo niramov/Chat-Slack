@@ -5,6 +5,7 @@ import { Form, Button, InputGroup } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 
 const SendMessageForm = () => {
   const { t } = useTranslation();
@@ -15,11 +16,16 @@ const SendMessageForm = () => {
   const username = auth.getUserName();
   const currentChannelId = useSelector(getCurrentChannelId);
 
+  useEffect(() => {
+    inputRef.current.focus();
+    filter.loadDictionary('ru');
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputData !== '') {
       const data = {
-        body: inputData,
+        body: filter.clean(inputData),
         channelId: currentChannelId,
         username,
       };
@@ -28,10 +34,6 @@ const SendMessageForm = () => {
       inputRef.current.focus();
     }
   };
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
 
   return (
     <div className='mt-auto px-5 py-3'>

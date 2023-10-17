@@ -14,6 +14,8 @@ import ChatContextProvider from './contexts/chatApi';
 import SignUpPage from './components/SignUpPage';
 import { I18nextProvider } from 'react-i18next';
 import i18next from './locales/init';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io('http://localhost:3000');
 
@@ -33,6 +35,7 @@ function App() {
                     <Route path='signup' element={<SignUpPage />} />
                   </Route>
                 </Routes>
+                <ToastContainer />
               </BrowserRouter>
             </AuthProvider>
           </ChatContextProvider>

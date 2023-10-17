@@ -6,6 +6,7 @@ import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const Add = ({ hideModal }) => {
   const { t } = useTranslation();
@@ -23,6 +24,14 @@ const Add = ({ hideModal }) => {
     const channelName = { name: values.name };
     api.addNewChannel(channelName);
     hideModal();
+    toast.success(t('toast.add'));
+    //   position: 'top-right', // Позиция уведомления
+    //   autoClose: 5000, // Время в миллисекундах, через которое уведомление автоматически закроется
+    //   hideProgressBar: false, // Отключить полосу прогресса
+    //   closeOnClick: true, // Закрытие по клику
+    //   pauseOnHover: true, // Пауза при наведении
+    //   draggable: true, // Возможность перемещения уведомления
+    // });
   };
 
   const AddChannelSchema = Yup.object().shape({

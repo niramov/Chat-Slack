@@ -12,6 +12,7 @@ const ru = {
       enter: 'Войти',
       noAccount: 'Нет аккаунта?',
       register: 'Регистрация',
+      error: 'Неверные имя пользователя или пароль',
     },
     messages: {
       message_one: '{{count}} сообщение',
@@ -50,6 +51,13 @@ const ru = {
       password: 'Пароль',
       passwordConfirm: 'Подтверждение пароля',
       confirm: 'Зарегистрироваться',
+    },
+    toast: {
+      add: 'Канал добавлен',
+      rename: 'Канал переименован',
+      remove: 'Канал удален',
+      unknown: 'Неизвестная ошибка',
+      network: 'Ошибка сети',
     },
   },
 };

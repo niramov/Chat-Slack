@@ -80,9 +80,7 @@ const LoginPage = () => {
                     type='password'
                     isInvalid={(touched.password && errors.password) || authFailed}
                   />
-                  <Form.Control.Feedback type='invalid'>
-                    {errors.password ?? 'Нет такого пользователя'}
-                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type='invalid'>{errors.password ?? t('login.error')}</Form.Control.Feedback>
                   <Form.Label htmlFor='password'>{t('login.password')}</Form.Label>
                 </Form.Group>
                 <Button className='w-100 mb-3' variant='primary' type='submit'>

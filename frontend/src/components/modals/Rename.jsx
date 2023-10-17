@@ -6,6 +6,7 @@ import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const Rename = ({ hideModal, modalInfo }) => {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ const Rename = ({ hideModal, modalInfo }) => {
     console.log('channelName!!!', channel);
     api.renameOneChannel(channel);
     hideModal();
+    toast.success(t('toast.rename'));
   };
 
   const RenameSchema = Yup.object().shape({
