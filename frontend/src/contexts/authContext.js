@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
 
   const getUserName = () => {
     const userName = JSON.parse(localStorage.getItem('userId'));
-    return userName.username;
+    return userName?.username;
   };
 
   return (

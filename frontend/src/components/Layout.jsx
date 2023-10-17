@@ -13,7 +13,7 @@ const Layout = () => {
     navigate('login');
   };
   return (
-    <>
+    <div className='container-fluid d-flex flex-column vh-100'>
       <Navbar bg='light' expand='lg' className='shadow-sm'>
         <Container>
           <Navbar.Brand href='/'>{t('nav.logo')}</Navbar.Brand>
@@ -26,7 +26,7 @@ const Layout = () => {
         </Container>
       </Navbar>
       <Outlet />
-    </>
+    </div>
   );
 };
 

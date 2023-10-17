@@ -78,7 +78,7 @@ const Channels = () => {
   };
 
   return (
-    <Col className='col-4 col-md-2 border-end px-0 bg-light flex-column d-flex'>
+    <Col className='col-4 col-md-3 border-end px-0 bg-light flex-column d-flex'>
       <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
         <b>{t('channel.channels')}</b>
         <Button

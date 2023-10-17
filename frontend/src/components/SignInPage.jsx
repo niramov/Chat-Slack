@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Container, Card, Row } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import routes from '../routes/routes.js';
@@ -36,12 +36,11 @@ const LoginPage = () => {
         navigate('/');
       } catch (error) {
         if (error.isAxiosError && error.response.status === 401) {
-          console.log('error!!!');
           setAuthFailed(true);
           auth.logOut();
           return false;
         }
-        // throw error;
+        throw error;
       }
     },
   });
@@ -51,11 +50,11 @@ const LoginPage = () => {
   const { handleSubmit, handleChange, values, touched, errors } = formik;
 
   return (
-    <div className='container-fluid h-100 mt-4'>
-      <div className='row justify-content-center align-content-center h-100'>
-        <div className='col-12 col-md-8 col-xxl-6'>
-          <div className='card shadow-sm'>
-            <div className='card-body row p-5'>
+    <>
+      <Container fluid className='h-100 m-3'>
+        <Row className='justify-content-center align-items-center h100'>
+          <Card style={{ width: '30rem' }} className='text-center shadow-sm'>
+            <Card.Body className='row'>
               <Form className='form-container mt-3 mt-mb-0' onSubmit={handleSubmit}>
                 <h2 className='text-center mb-4'>{t('login.enter')}</h2>
                 <Form.Group className='form-floating mb-3'>
@@ -87,16 +86,16 @@ const LoginPage = () => {
                   Войти
                 </Button>
               </Form>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Card.Body>
+          </Card>
+        </Row>
+      </Container>
       <div className='card-footer p-4'>
         <div className='text-center'>
           <span>{t('login.noAccount')}</span> <Link to='/signup'>{t('login.register')}</Link>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
