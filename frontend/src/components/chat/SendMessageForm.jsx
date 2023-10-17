@@ -43,7 +43,6 @@ const SendMessageForm = () => {
             placeholder={t('messages.placeholder')}
             className='border-0 p-0 ps-1'
             aria-label='Новое сообщение'
-            aria-describedby='basic-addon2'
             name='inputField'
             value={inputData}
             onChange={(e) => setInputData(e.target.value)}
