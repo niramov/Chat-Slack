@@ -8,7 +8,7 @@ const ru = {
     login: {
       title: 'Войти',
       name: 'Ваш ник',
-      password: 'Ваш пароль',
+      password: 'Пароль',
       enter: 'Войти',
       noAccount: 'Нет аккаунта?',
       register: 'Регистрация',
