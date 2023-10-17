@@ -18,7 +18,6 @@ const SendMessageForm = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-    filter.loadDictionary('ru');
   }, []);
 
   const handleSubmit = (e) => {

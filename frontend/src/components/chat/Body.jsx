@@ -7,7 +7,7 @@ const MessagesList = () => {
 
   return (
     <div className='chat-messages overflow-auto px-5'>
-      {messages.map(({ username, body, channelId, id }) => {
+      {messages.map(({ username, body, id }) => {
         return (
           <div key={id} className='text-break mb-2'>
             <b>{username}</b>
