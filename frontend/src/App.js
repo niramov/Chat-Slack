@@ -17,7 +17,7 @@ import i18next from './locales/init';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const socket = io('http://localhost:3000');
+const socket = io();
 
 function App() {
   return (
