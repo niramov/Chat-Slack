@@ -59,6 +59,7 @@ const Rename = ({ hideModal, modalInfo }) => {
               value={values.name}
               isInvalid={!!errors.name}
               name='name'
+              type='text'
             />
             <Form.Label className='visually-hidden' htmlFor='name'>
               {t('modals.modalName')}
