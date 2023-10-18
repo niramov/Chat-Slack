@@ -25,13 +25,6 @@ const Add = ({ hideModal }) => {
     api.addNewChannel(channelName);
     hideModal();
     toast.success(t('toast.add'));
-    //   position: 'top-right', // Позиция уведомления
-    //   autoClose: 5000, // Время в миллисекундах, через которое уведомление автоматически закроется
-    //   hideProgressBar: false, // Отключить полосу прогресса
-    //   closeOnClick: true, // Закрытие по клику
-    //   pauseOnHover: true, // Пауза при наведении
-    //   draggable: true, // Возможность перемещения уведомления
-    // });
   };
 
   const AddChannelSchema = Yup.object().shape({
@@ -66,6 +59,9 @@ const Add = ({ hideModal }) => {
               isInvalid={!!errors.name}
               name='name'
             />
+            <Form.Label className='visually-hidden' htmlFor='name'>
+              {t('modal.modalName')}
+            </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
               <Button type='button' onClick={hideModal} variant='primary' className='btn btn-primary me-2 mt-2'>

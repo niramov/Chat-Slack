@@ -22,6 +22,7 @@ const ru = {
       placeholder: 'Введите сообщение...',
     },
     modals: {
+      modalName: 'Имя канала',
       addTitle: 'Добавить канал',
       minName: '1 символ минимум',
       maxName: 'Не более 20 символов',
