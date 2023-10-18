@@ -60,9 +60,12 @@ const Rename = ({ hideModal, modalInfo }) => {
               isInvalid={!!errors.name}
               name='name'
             />
+            <Form.Label className='visually-hidden' htmlFor='name'>
+              {t('modals.modalRename')}
+            </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
-              <Button type='button' onClick={hideModal} variant='primary' className='btn btn-primary me-2 mt-2'>
+              <Button type='button' onClick={hideModal} variant='secondary' className='btn btn-primary me-2 mt-2'>
                 {t('modals.cancellButton')}
               </Button>
               <Button type='submit' variant='primary' className='btn btn-primary mt-2'>

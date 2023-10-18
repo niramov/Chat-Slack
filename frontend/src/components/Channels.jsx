@@ -62,7 +62,7 @@ const Channels = () => {
                 # {name}
               </Button>
               <Dropdown.Toggle split variant={variant} className='flex-grow-0 text-end'>
-                <span className='visually-hidden'>Изменить</span>
+                <span className='visually-hidden'>{t('channel.channelManagment')}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => handleClick('removing', { id })}>{t('channel.delete')}</Dropdown.Item>

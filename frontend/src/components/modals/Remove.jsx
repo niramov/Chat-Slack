@@ -23,10 +23,10 @@ const Rename = ({ hideModal, modalInfo }) => {
       <Modal.Body>{t('modals.sure')}</Modal.Body>
       <Modal.Footer>
         <div className='d-flex justify-content-end'>
-          <Button type='button' onClick={hideModal} variant='primary' className='btn btn-primary me-2 mt-2'>
+          <Button type='button' onClick={hideModal} variant='secondary' className='btn btn-primary me-2 mt-2'>
             {t('modals.cancellButton')}
           </Button>
-          <Button type='submit' onClick={removeChannel} variant='primary' className='btn btn-primary mt-2'>
+          <Button type='submit' onClick={removeChannel} variant='danger' className='btn btn-primary mt-2'>
             {t('modals.confirmRemove')}
           </Button>
         </div>

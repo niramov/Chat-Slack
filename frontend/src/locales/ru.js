@@ -38,6 +38,7 @@ const ru = {
       delete: 'Удалить',
       rename: 'Переименовать',
       channels: 'Каналы',
+      channelManagement: 'Управление каналом',
     },
     schema: {
       nameMin: 'От 3 до 20 символов',
