@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form, Container, Card, Row } from 'react-bootstrap';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import routes from '../routes/routes.js';
 import useAuth from '../hooks/useAuth.js';

@@ -42,7 +42,7 @@ const MainPage = () => {
       }
     };
     getData();
-  }, [dispatch]);
+  }, [dispatch, auth.loggedIn, t, navigate]);
 
   return (
     <Container className='container vh-100 rounded shadow'>

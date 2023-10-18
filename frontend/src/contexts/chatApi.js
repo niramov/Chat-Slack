@@ -24,7 +24,7 @@ const ChatContextProvider = ({ children }) => {
       dispatch(setDefaultChannel(data.id));
       dispatch(removeChannel(data.id));
     });
-  }, [socket]);
+  }, [socket, dispatch]);
 
   const addNewMessage = (message) => {
     socket.emit('newMessage', message);
