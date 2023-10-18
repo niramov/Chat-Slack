@@ -57,11 +57,11 @@ const Add = ({ hideModal }) => {
               onChange={handleChange}
               value={values.name}
               isInvalid={!!errors.name}
-              name={`text=${t('modals.modalName')}`}
+              name='name'
             />
-            {/* <Form.Label className='visually-hidden' htmlFor='name'>
+            <Form.Label className='visually-hidden' htmlFor='name'>
               {t('modals.modalName')}
-            </Form.Label> */}
+            </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
               <Button type='button' onClick={hideModal} variant='secondary' className='btn btn-primary me-2 mt-2'>
