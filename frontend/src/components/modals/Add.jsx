@@ -60,7 +60,7 @@ const Add = ({ hideModal }) => {
               name='name'
             />
             <Form.Label className='visually-hidden' htmlFor='name'>
-              {t('modal.modalName')}
+              {t('modals.modalName')}
             </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
