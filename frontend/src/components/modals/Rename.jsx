@@ -17,12 +17,11 @@ const Rename = ({ hideModal, modalInfo }) => {
   const channelsNames = channelsList.map(({ name }) => name);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   const renameChannel = (values) => {
     const channel = { name: values.name, id: modalInfo.item.id };
-    console.log('channelName!!!', channel);
     api.renameOneChannel(channel);
     hideModal();
     toast.success(t('toast.rename'));
@@ -53,17 +52,15 @@ const Rename = ({ hideModal, modalInfo }) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Control
-              required
               ref={inputRef}
               onChange={handleChange}
               value={values.name}
               isInvalid={!!errors.name}
               name='name'
               type='text'
-              id={t('modals.modalName')}
             />
             <Form.Label className='visually-hidden' htmlFor='name'>
-              {/* {t('modals.modalName')} */}
+              {t('modals.modalName')}
             </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
