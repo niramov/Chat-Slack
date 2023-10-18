@@ -61,7 +61,7 @@ const Rename = ({ hideModal, modalInfo }) => {
               name='name'
             />
             <Form.Label className='visually-hidden' htmlFor='name'>
-              {t('modals.modalRename')}
+              {t('modals.modalName')}
             </Form.Label>
             <Form.Control.Feedback type='invalid'>{errors.name}</Form.Control.Feedback>
             <div className='d-flex justify-content-end'>
