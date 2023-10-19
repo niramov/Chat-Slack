@@ -1,27 +1,28 @@
-import React, {useRef, useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {useFormik} from 'formik';
-import {Modal, Form, Button} from 'react-bootstrap';
+/* eslint-disable react/prop-types */
+import React, { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+import { Modal, Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
-import {useTranslation} from 'react-i18next';
-import {toast} from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import useChatApi from '../../hooks/useChatApi';
-import {getChannels} from '../../store/selectors';
+import { getChannels } from '../../store/selectors';
 
-const Add = ({hideModal}) => {
-  const {t} = useTranslation();
+const Add = ({ hideModal }) => {
+  const { t } = useTranslation();
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
-  const channelsNames = channelsList.map(({name}) => name);
+  const channelsNames = channelsList.map(({ name }) => name);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   const sendChannelName = (values) => {
-    const channelName = {name: values.name};
+    const channelName = { name: values.name };
     api.addNewChannel(channelName);
     hideModal();
     toast.success(t('toast.add'));
@@ -35,12 +36,12 @@ const Add = ({hideModal}) => {
   });
 
   const formik = useFormik({
-    initialValues: {name: ''},
+    initialValues: { name: '' },
     onSubmit: (values) => sendChannelName(values),
     validationSchema: AddChannelSchema,
   });
 
-  const {handleChange, values, handleSubmit, errors} = formik;
+  const { handleChange, values, handleSubmit, errors } = formik;
 
   return (
     <Modal show>

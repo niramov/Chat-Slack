@@ -1,27 +1,28 @@
-import React, {useRef, useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {useFormik} from 'formik';
+/* eslint-disable react/prop-types */
+import React, { useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {useTranslation} from 'react-i18next';
-import {toast} from 'react-toastify';
-import {Modal, Form, Button} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { Modal, Form, Button } from 'react-bootstrap';
 import useChatApi from '../../hooks/useChatApi';
-import {getChannels} from '../../store/selectors';
+import { getChannels } from '../../store/selectors';
 
-const Rename = ({hideModal, modalInfo}) => {
-  const {t} = useTranslation();
+const Rename = ({ hideModal, modalInfo }) => {
+  const { t } = useTranslation();
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
-  const channelsNames = channelsList.map(({name}) => name);
+  const channelsNames = channelsList.map(({ name }) => name);
 
   useEffect(() => {
     inputRef.current.select();
   }, []);
 
   const renameChannel = (values) => {
-    const channel = {name: values.name, id: modalInfo.item.id};
+    const channel = { name: values.name, id: modalInfo.item.id };
     api.renameOneChannel(channel);
     hideModal();
     toast.success(t('toast.rename'));
@@ -35,12 +36,12 @@ const Rename = ({hideModal, modalInfo}) => {
   });
 
   const formik = useFormik({
-    initialValues: {name: modalInfo.item.name},
+    initialValues: { name: modalInfo.item.name },
     onSubmit: (values) => renameChannel(values),
     validationSchema: RenameSchema,
   });
 
-  const {handleChange, values, handleSubmit, errors} = formik;
+  const { handleChange, values, handleSubmit, errors } = formik;
 
   return (
     <Modal show>

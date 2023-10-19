@@ -19,30 +19,28 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io();
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <SocketContext.Provider value={socket}>
-        <I18nextProvider value={i18next}>
-          <ChatContextProvider>
-            <AuthProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path='/' element={<Layout />}>
-                    <Route index element={<MainPage />} />
-                    <Route path='login' element={<SignInPage />} />
-                    <Route path='error' element={<ErrorPage />} />
-                    <Route path='signup' element={<SignUpPage />} />
-                  </Route>
-                </Routes>
-                <ToastContainer />
-              </BrowserRouter>
-            </AuthProvider>
-          </ChatContextProvider>
-        </I18nextProvider>
-      </SocketContext.Provider>
-    </Provider>
-  );
-};
+const App = () => (
+  <Provider store={store}>
+    <SocketContext.Provider value={socket}>
+      <I18nextProvider value={i18next}>
+        <ChatContextProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<MainPage />} />
+                  <Route path="login" element={<SignInPage />} />
+                  <Route path="error" element={<ErrorPage />} />
+                  <Route path="signup" element={<SignUpPage />} />
+                </Route>
+              </Routes>
+              <ToastContainer />
+            </BrowserRouter>
+          </AuthProvider>
+        </ChatContextProvider>
+      </I18nextProvider>
+    </SocketContext.Provider>
+  </Provider>
+);
 
 export default App;

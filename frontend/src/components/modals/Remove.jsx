@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import {Modal, Button} from 'react-bootstrap';
-import {toast} from 'react-toastify';
-import {useTranslation} from 'react-i18next';
+import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 import useChatApi from '../../hooks/useChatApi';
 
-const Rename = ({hideModal, modalInfo}) => {
-  const {t} = useTranslation();
+const Rename = ({ hideModal, modalInfo }) => {
+  const { t } = useTranslation();
   const api = useChatApi();
 
   const removeChannel = () => {
-    api.removeOneChannel({id: modalInfo.item.id});
+    api.removeOneChannel({ id: modalInfo.item.id });
     hideModal();
     toast.success(t('toast.remove'));
   };
