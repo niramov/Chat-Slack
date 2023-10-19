@@ -1,4 +1,4 @@
-import {createSelector} from 'reselect';
+import { createSelector } from 'reselect';
 
 export const getCurrentChannelId = (state) => state.channels.currentChannelId;
 const getMessages = (state) => state.messages.entities;
@@ -10,7 +10,7 @@ export const getChannels = (state) => {
 
 export const getCurrentChannelMessages = createSelector(
   [getCurrentChannelId, getMessages],
-  (id, messages) => Object.values(messages).filter((msg) => msg.channelId === id)
+  (id, messages) => Object.values(messages).filter((msg) => msg.channelId === id),
 );
 
 export const getChannelsName = createSelector(
@@ -19,5 +19,5 @@ export const getChannelsName = createSelector(
     const channelsList = Object.values(channels);
     const channel = channelsList.find((ch) => ch.id === id);
     return channel?.name;
-  }
+  },
 );

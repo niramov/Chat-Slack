@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {Provider, ErrorBoundary} from '@rollbar/react';
+import { Provider, ErrorBoundary } from '@rollbar/react';
 import './index.css';
 import App from './App';
 
@@ -17,7 +17,7 @@ root.render(
         <App />
       </ErrorBoundary>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
