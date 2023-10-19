@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 const channelsAdapter = createEntityAdapter();

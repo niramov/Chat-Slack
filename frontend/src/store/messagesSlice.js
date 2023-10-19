@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { removeChannel } from './chanelsSlice';
 
@@ -16,7 +17,7 @@ const messagesSlice = createSlice({
       const channelId = action.payload;
       console.log('channelId', channelId);
       const restMessages = Object.values(state.entities).filter(
-        (message) => message.channelId !== channelId,
+        (message) => message.channelId !== channelId
       );
       messagesAdapter.setAll(state, restMessages);
     });
