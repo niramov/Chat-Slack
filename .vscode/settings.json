@@ -1,0 +1,5 @@
+{
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.bracketSameLine": false,
+  "prettier.bracketSpacing": false
+}

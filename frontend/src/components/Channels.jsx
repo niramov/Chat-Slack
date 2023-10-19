@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import { Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import React, {useState} from 'react';
+import {Col, Button, Dropdown, ButtonGroup} from 'react-bootstrap';
+import {useDispatch, useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 import cn from 'classnames';
-import { setCurrentChannel } from '../store/chanelsSlice';
+import {setCurrentChannel} from '../store/chanelsSlice';
 import getModal from './modals';
-import { getChannels } from '../store/selectors';
+import {getChannels} from '../store/selectors';
 
 const Channels = () => {
-  const { t } = useTranslation();
-  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  const hideModal = () => setModalInfo({ type: null, item: null });
+  const {t} = useTranslation();
+  const [modalInfo, setModalInfo] = useState({type: null, item: null});
+  const hideModal = () => setModalInfo({type: null, item: null});
   const dispatch = useDispatch();
   const channels = useSelector(getChannels);
   const channelsNames = Object.values(channels);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
 
   const handleClick = (type, item = null) => {
-    setModalInfo({ type, item });
+    setModalInfo({type, item});
   };
-  const renderModal = ({ hide, info, setInfo }) => {
+  const renderModal = ({hideModal, modalInfo, setModalInfo}) => {
     if (!modalInfo.type) {
       return null;
     }
 
     const Modal = getModal(modalInfo.type);
 
-    return <Modal hideModal={hide} modalInfo={info} setModalInfo={setInfo} />;
+    return <Modal hideModal={hideModal} modalInfo={modalInfo} setModalInfo={setModalInfo} />;
   };
 
   const channelsList = () =>
-    channelsNames.map(({ name, id, removable }) => {
+    channelsNames.map(({name, id, removable}) => {
       const btnClasses = cn('btn', {
         'btn-secondary': currentChannelId === id,
       });
@@ -66,8 +66,10 @@ const Channels = () => {
                 <span className="visually-hidden">{t('channel.channelManagement')}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleClick('removing', { id })}>{t('channel.delete')}</Dropdown.Item>
-                <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>
+                <Dropdown.Item onClick={() => handleClick('removing', {id})}>
+                  {t('channel.delete')}
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleClick('renaming', {name, id})}>
                   {t('channel.rename')}
                 </Dropdown.Item>
               </Dropdown.Menu>
@@ -89,8 +91,10 @@ const Channels = () => {
           +
         </Button>
       </div>
-      <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">{channelsList()}</ul>
-      {renderModal({ hideModal, modalInfo, setModalInfo })}
+      <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
+        {channelsList()}
+      </ul>
+      {renderModal({hideModal, modalInfo, setModalInfo})}
     </Col>
   );
 };
