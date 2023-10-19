@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
+import {Provider, ErrorBoundary} from '@rollbar/react';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider, ErrorBoundary } from '@rollbar/react';
 
 const rollbarConfig = {
   accessToken: '72e6d9511e694d00bea1e3cb928da670',

@@ -1,25 +1,25 @@
 import './App.css';
 import React from 'react';
+import { Provider } from 'react-redux';
+import { io } from 'socket.io-client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { I18nextProvider } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 import SignInPage from './components/SignInPage.jsx';
 import ErrorPage from './components/ErrorPage.jsx';
 import AuthProvider from './contexts/authContext.js';
 import MainPage from './components/MainPage';
 import Layout from './components/Layout.jsx';
-import { Provider } from 'react-redux';
 import store from './store/store';
-import { io } from 'socket.io-client';
 import SocketContext from './contexts/socketContext';
 import ChatContextProvider from './contexts/chatApi';
 import SignUpPage from './components/SignUpPage';
-import { I18nextProvider } from 'react-i18next';
 import i18next from './locales/init';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io();
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <SocketContext.Provider value={socket}>
@@ -43,6 +43,6 @@ function App() {
       </SocketContext.Provider>
     </Provider>
   );
-}
+};
 
 export default App;

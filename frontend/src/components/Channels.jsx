@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import { setCurrentChannel } from '../store/chanelsSlice';
 import getModal from './modals';
 import { getChannels } from '../store/selectors';
-import { useTranslation } from 'react-i18next';
 
 const Channels = () => {
   const { t } = useTranslation();
@@ -19,26 +19,27 @@ const Channels = () => {
   const handleClick = (type, item = null) => {
     setModalInfo({ type, item });
   };
-  const renderModal = ({ hideModal, modalInfo, setModalInfo }) => {
+  const renderModal = ({ hide, info, setInfo }) => {
     if (!modalInfo.type) {
       return null;
     }
 
     const Modal = getModal(modalInfo.type);
 
-    return <Modal hideModal={hideModal} modalInfo={modalInfo} setModalInfo={setModalInfo} />;
+    return <Modal hideModal={hide} modalInfo={info} setModalInfo={setInfo} />;
   };
-  const channelsList = () => {
-    return channelsNames.map(({ name, id, removable }) => {
+
+  const channelsList = () =>
+    channelsNames.map(({ name, id, removable }) => {
       const btnClasses = cn('btn', {
         'btn-secondary': currentChannelId === id,
       });
       const variant = currentChannelId === id ? 'secondary' : 'light';
       if (!removable) {
         return (
-          <li className='nav-item w-100' key={id}>
+          <li className="nav-item w-100" key={id}>
             <button
-              type='button'
+              type="button"
               onClick={() => dispatch(setCurrentChannel(id))}
               className={`w-100 rounded-0 text-start ${btnClasses}`}
             >
@@ -50,19 +51,19 @@ const Channels = () => {
 
       return (
         <li key={id}>
-          <div role='group' className='d-flex dropdown btn-group'>
-            <Dropdown as={ButtonGroup} className='w-100'>
+          <div role="group" className="d-flex dropdown btn-group">
+            <Dropdown as={ButtonGroup} className="w-100">
               <Button
                 variant={variant}
-                className='text-start w-100 tet-truncate'
+                className="text-start w-100 tet-truncate"
                 onClick={() => {
                   dispatch(setCurrentChannel(id));
                 }}
               >
                 # {name}
               </Button>
-              <Dropdown.Toggle split variant={variant} className='flex-grow-0 text-end'>
-                <span className='visually-hidden'>{t('channel.channelManagement')}</span>
+              <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
+                <span className="visually-hidden">{t('channel.channelManagement')}</span>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item onClick={() => handleClick('removing', { id })}>{t('channel.delete')}</Dropdown.Item>
@@ -75,21 +76,20 @@ const Channels = () => {
         </li>
       );
     });
-  };
 
   return (
-    <Col className='col-4 col-md-3 border-end px-0 bg-light flex-column d-flex'>
-      <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
+    <Col className="col-4 col-md-3 border-end px-0 bg-light flex-column d-flex">
+      <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channel.channels')}</b>
         <Button
           onClick={() => handleClick('adding')}
-          variant='link'
-          className='p-0 text-primary btn-group-vertical text-decoration-none'
+          variant="link"
+          className="p-0 text-primary btn-group-vertical text-decoration-none"
         >
           +
         </Button>
       </div>
-      <ul className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'>{channelsList()}</ul>
+      <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">{channelsList()}</ul>
       {renderModal({ hideModal, modalInfo, setModalInfo })}
     </Col>
   );

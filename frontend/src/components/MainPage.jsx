@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
-import routes from '../routes/routes';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import routes from '../routes/routes';
 import getAuthHeader from '../utils/getAuthHeader';
 import useAuth from '../hooks/useAuth';
-import { useDispatch } from 'react-redux';
 import { addChannels, setCurrentChannel } from '../store/chanelsSlice';
 import { addMessages } from '../store/messagesSlice';
 import Channels from './Channels';
 import Chat from './chat/Chat';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 
 const MainPage = () => {
   const { t } = useTranslation();
@@ -45,8 +45,8 @@ const MainPage = () => {
   }, [dispatch, auth.loggedIn, t, navigate]);
 
   return (
-    <Container className='container vh-100 rounded shadow'>
-      <Row className='row h-100 bg-white flex-md-row'>
+    <Container className="container vh-100 rounded shadow">
+      <Row className="row h-100 bg-white flex-md-row">
         <Channels />
         <Chat />
       </Row>

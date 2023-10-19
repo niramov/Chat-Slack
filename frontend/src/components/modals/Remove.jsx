@@ -1,15 +1,15 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
+import {toast} from 'react-toastify';
+import {useTranslation} from 'react-i18next';
 import useChatApi from '../../hooks/useChatApi';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
-const Rename = ({ hideModal, modalInfo }) => {
-  const { t } = useTranslation();
+const Rename = ({hideModal, modalInfo}) => {
+  const {t} = useTranslation();
   const api = useChatApi();
 
   const removeChannel = () => {
-    api.removeOneChannel({ id: modalInfo.item.id });
+    api.removeOneChannel({id: modalInfo.item.id});
     hideModal();
     toast.success(t('toast.remove'));
   };
@@ -22,11 +22,21 @@ const Rename = ({ hideModal, modalInfo }) => {
 
       <Modal.Body>{t('modals.sure')}</Modal.Body>
       <Modal.Footer>
-        <div className='d-flex justify-content-end'>
-          <Button type='button' onClick={hideModal} variant='secondary' className='btn btn-primary me-2 mt-2'>
+        <div className="d-flex justify-content-end">
+          <Button
+            type="button"
+            onClick={hideModal}
+            variant="secondary"
+            className="btn btn-primary me-2 mt-2"
+          >
             {t('modals.cancellButton')}
           </Button>
-          <Button type='submit' onClick={removeChannel} variant='danger' className='btn btn-primary mt-2'>
+          <Button
+            type="submit"
+            onClick={removeChannel}
+            variant="danger"
+            className="btn btn-primary mt-2"
+          >
             {t('modals.confirmRemove')}
           </Button>
         </div>
