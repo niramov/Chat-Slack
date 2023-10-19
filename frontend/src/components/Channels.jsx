@@ -29,55 +29,58 @@ const Channels = () => {
     return <Modal hideModal={onHideModal} modalInfo={newModalInfo} setModalInfo={onSetModalInfo} />;
   };
 
-  const channelsList = () =>
-    channelsNames.map(({ name, id, removable }) => {
-      const btnClasses = cn('btn', {
-        'btn-secondary': currentChannelId === id,
-      });
-      const variant = currentChannelId === id ? 'secondary' : 'light';
-      if (!removable) {
-        return (
-          <li className="nav-item w-100" key={id}>
-            <button
-              type="button"
-              onClick={() => dispatch(setCurrentChannel(id))}
-              className={`w-100 rounded-0 text-start ${btnClasses}`}
-            >
-              # {name}
-            </button>
-          </li>
-        );
-      }
-
+  const channelsList = () => channelsNames.map(({ name, id, removable }) => {
+    const btnClasses = cn('btn', {
+      'btn-secondary': currentChannelId === id,
+    });
+    const variant = currentChannelId === id ? 'secondary' : 'light';
+    if (!removable) {
       return (
-        <li key={id}>
-          <div role="group" className="d-flex dropdown btn-group">
-            <Dropdown as={ButtonGroup} className="w-100">
-              <Button
-                variant={variant}
-                className="text-start w-100 tet-truncate"
-                onClick={() => {
-                  dispatch(setCurrentChannel(id));
-                }}
-              >
-                # {name}
-              </Button>
-              <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
-                <span className="visually-hidden">{t('channel.channelManagement')}</span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={() => handleClick('removing', { id })}>
-                  {t('channel.delete')}
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>
-                  {t('channel.rename')}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
+        <li className="nav-item w-100" key={id}>
+          <button
+            type="button"
+            onClick={() => dispatch(setCurrentChannel(id))}
+            className={`w-100 rounded-0 text-start ${btnClasses}`}
+           >
+            #
+            {' '}
+            {name}
+          </button>
         </li>
       );
-    });
+    }
+
+    return (
+      <li key={id}>
+        <div role="group" className="d-flex dropdown btn-group">
+          <Dropdown as={ButtonGroup} className="w-100">
+            <Button
+              variant={variant}
+              className="text-start w-100 tet-truncate"
+              onClick={() => {
+                dispatch(setCurrentChannel(id));
+              }}
+            >
+              #
+              {' '}
+              {name}
+            </Button>
+            <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
+              <span className="visually-hidden">{t('channel.channelManagement')}</span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => handleClick('removing', { id })}>
+                {t('channel.delete')}
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleClick('renaming', { name, id })}>
+                {t('channel.rename')}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      </li>
+    );
+  });
 
   return (
     <Col className="col-4 col-md-3 border-end px-0 bg-light flex-column d-flex">
