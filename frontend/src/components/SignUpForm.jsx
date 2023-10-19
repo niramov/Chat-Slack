@@ -63,7 +63,8 @@ const SignUpForm = () => {
   const {
     handleSubmit,
     handleChange,
-    values,touched,
+    values,
+    touched,
     errors,
     isSubmitting,
   } = formik;
