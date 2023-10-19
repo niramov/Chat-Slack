@@ -1,14 +1,14 @@
-import React, {useEffect, useState, useRef} from 'react';
-import {useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
-import {Form, Button, InputGroup} from 'react-bootstrap';
+import React, { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 import filter from 'leo-profanity';
-import {getCurrentChannelId} from '../../store/selectors';
+import { getCurrentChannelId } from '../../store/selectors';
 import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
 
 const SendMessageForm = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const [inputData, setInputData] = useState('');
   const inputRef = useRef(null);
   const api = useChatApi();

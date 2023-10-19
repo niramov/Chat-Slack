@@ -1,7 +1,7 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {useTranslation} from 'react-i18next';
-import {getChannelsName, getCurrentChannelMessages} from '../../store/selectors';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { getChannelsName, getCurrentChannelMessages } from '../../store/selectors';
 
 const Header = () => {
   const {t} = useTranslation();
@@ -16,7 +16,7 @@ const Header = () => {
         </b>
       </p>
       <span className="text-muted">
-        {t('messages.message', {count: count.length})}
+        {t('messages.message', { count: count.length })}
       </span>
     </div>
   );

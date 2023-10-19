@@ -41,7 +41,7 @@ const Channels = () => {
             type="button"
             onClick={() => dispatch(setCurrentChannel(id))}
             className={`w-100 rounded-0 text-start ${btnClasses}`}
-           >
+          >
             #
             {' '}
             {name}

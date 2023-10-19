@@ -7,7 +7,8 @@ const ErrorPage = () => {
     <div className="text-center">
       <h1 className="h4 text-muted">{t('notFoundPage.notFound')}</h1>
       <p className="text-muted">
-        {t('notFoundPage.walkTo')} <a href="/">{t('notFoundPage.teleport')}</a>
+        {t('notFoundPage.walkTo')}
+        <a href="/">{t('notFoundPage.teleport')}</a>
       </p>
     </div>
   );
