@@ -21,6 +21,7 @@ const Rename = ({ hideModal, modalInfo }) => {
     inputRef.current.select();
   }, []);
 
+  // eslint-disable-next-line no-shadow
   const renameChannel = (values) => {
     const channel = { name: values.name, id: modalInfo.item.id };
     api.renameOneChannel(channel);

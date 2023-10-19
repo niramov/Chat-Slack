@@ -27,6 +27,7 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: SignInSchema,
+    // eslint-disable-next-line consistent-return
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), values);

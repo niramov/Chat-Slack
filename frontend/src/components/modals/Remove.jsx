@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useChatApi from '../../hooks/useChatApi';
 
+// eslint-disable-next-line no-shadow
 const Rename = ({ hideModal, modalInfo }) => {
   const { t } = useTranslation();
   const api = useChatApi();

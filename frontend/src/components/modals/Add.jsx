@@ -21,6 +21,7 @@ const Add = ({ hideModal }) => {
     inputRef.current.focus();
   }, []);
 
+  // eslint-disable-next-line no-shadow
   const sendChannelName = (values) => {
     const channelName = { name: values.name };
     api.addNewChannel(channelName);

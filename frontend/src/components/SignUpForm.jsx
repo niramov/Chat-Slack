@@ -34,6 +34,7 @@ const SignUpForm = () => {
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
     validationSchema: SignUpSchema,
+    // eslint-disable-next-line consistent-return
     onSubmit: async (values, { setSubmitting }) => {
       try {
         const { username, password } = values;
