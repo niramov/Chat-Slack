@@ -1,7 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Button, Form, Container, Card, Row } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  Container,
+  Card,
+  Row,
+} from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -48,7 +54,13 @@ const LoginPage = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  const { handleSubmit, handleChange, values, touched, errors } = formik;
+  const {
+    handleSubmit,
+    handleChange,
+    values,
+    touched,
+    errors,
+  } = formik;
 
   return (
     <>

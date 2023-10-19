@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import {
+  Col,
+  Button,
+  Dropdown,
+  ButtonGroup,
+} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';

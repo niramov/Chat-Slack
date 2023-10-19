@@ -42,7 +42,12 @@ const Add = ({ hideModal }) => {
     validationSchema: AddChannelSchema,
   });
 
-  const { handleChange, values, handleSubmit, errors } = formik;
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+  } = formik;
 
   return (
     <Modal show>

@@ -42,7 +42,12 @@ const Rename = ({ hideModal, modalInfo }) => {
     validationSchema: RenameSchema,
   });
 
-  const { handleChange, values, handleSubmit, errors } = formik;
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+  } = formik;
 
   return (
     <Modal show>
