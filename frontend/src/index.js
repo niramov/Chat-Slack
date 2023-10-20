@@ -5,7 +5,7 @@ import './index.css';
 import App from './App';
 
 const rollbarConfig = {
-  accessToken: '72e6d9511e694d00bea1e3cb928da670',
+  accessToken: env.process.REACT_APP_ROLLBAR,
   environment: 'production',
 };
 
