@@ -8,7 +8,6 @@ import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
 import { useFormik } from 'formik';
 import { addMessage } from '../../store/messagesSlice';
-import { useDispatch } from 'react-redux';
 
 const SendMessageForm = () => {
   const { t } = useTranslation();
@@ -17,21 +16,10 @@ const SendMessageForm = () => {
   const auth = useAuth();
   const username = auth.getUserName();
   const channelId = useSelector(getCurrentChannelId);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  useEffect(() => {
-    const callback = (message) => {
-      dispatch(addMessage(message));
-    };
-
-    api.addNewMessageListener(callback);
-
-    return api.removeNewMessageListener(callback);
-  }, [api, dispatch]);
 
   const formik = useFormik({
     initialValues: { message: '' },

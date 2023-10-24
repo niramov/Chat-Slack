@@ -1,9 +1,23 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { getCurrentChannelMessages } from '../../store/selectors';
+import useChatApi from '../../hooks/useChatApi';
+import { addMessage } from '../../store/messagesSlice';
 
 const MessagesList = () => {
   const messages = useSelector(getCurrentChannelMessages);
+  const dispatch = useDispatch();
+  const api = useChatApi();
+
+  useEffect(() => {
+    const callback = (message) => {
+      dispatch(addMessage(message));
+    };
+
+    api.addNewMessageListener(callback);
+
+    return () => api.removeNewMessageListener(callback);
+  }, [api, dispatch]);
 
   return (
     <div className="chat-messages overflow-auto px-5">
