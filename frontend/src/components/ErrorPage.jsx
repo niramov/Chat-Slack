@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
   const { t } = useTranslation();
@@ -8,7 +9,7 @@ const ErrorPage = () => {
       <h1 className="h4 text-muted">{t('notFoundPage.notFound')}</h1>
       <p className="text-muted">
         {t('notFoundPage.walkTo')}
-        <a href="/">{t('notFoundPage.teleport')}</a>
+        <Link to="/">{t('notFoundPage.teleport')}</Link>
       </p>
     </div>
   );

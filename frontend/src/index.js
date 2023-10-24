@@ -1,25 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, ErrorBoundary } from '@rollbar/react';
 import './index.css';
-import App from './App';
+import { io } from 'socket.io-client';
+import init from './init';
 
-const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR,
-  environment: 'production',
+// const rollbarConfig = {
+//   accessToken: process.env.REACT_APP_ROLLBAR,
+//   environment: 'production',
+// };
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <React.StrictMode>
+//     <Provider config={rollbarConfig}>
+//       <ErrorBoundary>
+//         <App />
+//       </ErrorBoundary>
+//     </Provider>
+//   </React.StrictMode>,
+// );
+
+const app = async () => {
+  const socket = io();
+  const vdom = await init(socket);
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<React.StrictMode>{vdom}</React.StrictMode>);
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <Provider config={rollbarConfig}>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </Provider>
-  </React.StrictMode>,
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+app();

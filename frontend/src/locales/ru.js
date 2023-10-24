@@ -20,6 +20,7 @@ const ru = {
       message_many: '{{count}} сообщений',
       send: 'Отправить',
       placeholder: 'Введите сообщение...',
+      newMessage: 'Новое сообщение',
     },
     modals: {
       modalName: 'Имя канала',

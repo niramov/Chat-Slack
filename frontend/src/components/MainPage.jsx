@@ -20,9 +20,6 @@ const MainPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (auth.loggedIn === false) {
-      navigate('login');
-    }
     const getData = async () => {
       try {
         const headers = getAuthHeader();
@@ -35,14 +32,15 @@ const MainPage = () => {
           toast.error(t('toast.unknown'));
         }
         if (error.response?.status === '401') {
-          navigate('/');
+          auth.logOut();
+          navigate(routes.login());
         } else {
           toast.error(t('toast.network'));
         }
       }
     };
     getData();
-  }, [dispatch, auth.loggedIn, t, navigate]);
+  }, [dispatch, auth, t, navigate]);
 
   return (
     <Container className="container vh-100 rounded shadow">

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -21,15 +20,17 @@ const Rename = ({ hideModal, modalInfo }) => {
     inputRef.current.select();
   }, []);
 
-  // eslint-disable-next-line no-shadow
-  const renameChannel = (values) => {
-    const channel = { name: values.name, id: modalInfo.item.id };
-    api.renameOneChannel(channel);
+  const handleSuccess = () => {
     hideModal();
     toast.success(t('toast.rename'));
+  }
+
+  const renameChannel = (values) => {
+    const channel = { name: values.name, id: modalInfo.item.id };
+    api.renameOneChannel(channel, handleSuccess);
   };
 
-  const RenameSchema = Yup.object().shape({
+  const renameSchema = Yup.object().shape({
     name: Yup.string()
       .min(1, t('modals.minName'))
       .max(20, t('modals.maxName'))
@@ -39,7 +40,7 @@ const Rename = ({ hideModal, modalInfo }) => {
   const formik = useFormik({
     initialValues: { name: modalInfo.item.name },
     onSubmit: (values) => renameChannel(values),
-    validationSchema: RenameSchema,
+    validationSchema: renameSchema,
   });
 
   const {

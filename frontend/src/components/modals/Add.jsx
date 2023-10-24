@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -8,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
+import { addChannel } from '../../store/chanelsSlice';
 
 const Add = ({ hideModal }) => {
   const { t } = useTranslation();
@@ -16,20 +16,33 @@ const Add = ({ hideModal }) => {
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
   const channelsNames = channelsList.map(({ name }) => name);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  // eslint-disable-next-line no-shadow
-  const sendChannelName = (values) => {
-    const channelName = { name: values.name };
-    api.addNewChannel(channelName);
+  // useEffect(() => {
+  //   const callback = (newChannel) => {
+  //     dispatch(addChannel(newChannel));
+  //   };
+
+  //   api.addNewChannelListener(callback);
+
+  //   return api.removeNewChannelListener(callback);
+  // }, [api, dispatch]);
+
+  const handleSuccess = () => {
     hideModal();
     toast.success(t('toast.add'));
   };
 
-  const AddChannelSchema = Yup.object().shape({
+  const sendChannelName = (values) => {
+    const channelName = { name: values.name };
+    api.addNewChannel(channelName, handleSuccess);
+  };
+
+  const addChannelSchema = Yup.object().shape({
     name: Yup.string()
       .min(1, t('modals.minName'))
       .max(20, t('modals.maxName'))
@@ -39,7 +52,7 @@ const Add = ({ hideModal }) => {
   const formik = useFormik({
     initialValues: { name: '' },
     onSubmit: (values) => sendChannelName(values),
-    validationSchema: AddChannelSchema,
+    validationSchema: addChannelSchema,
   });
 
   const {

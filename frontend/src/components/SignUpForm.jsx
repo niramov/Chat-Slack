@@ -34,26 +34,21 @@ const SignUpForm = () => {
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
     validationSchema: SignUpSchema,
-    // eslint-disable-next-line consistent-return
     onSubmit: async (values, { setSubmitting }) => {
       try {
         const { username, password } = values;
         const newUserData = { username, password };
         const response = await axios.post(routes.signUpPath(), newUserData);
-        auth.setUserId(response);
-        auth.logIn();
-        navigate('/');
+        auth.logIn(response);
+        navigate(routes.main());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 409) {
-          auth.logOut();
           setUserStatus(true);
           setAuthStatus(true);
           setSubmitting(false);
-          return false;
         }
         if (error.isAxiosError && error.response.status === 401) {
           setAuthStatus(true);
-          return false;
         }
         throw error;
       }

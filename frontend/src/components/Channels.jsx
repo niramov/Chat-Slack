@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Col,
   Button,
@@ -11,15 +11,50 @@ import cn from 'classnames';
 import { setCurrentChannel } from '../store/chanelsSlice';
 import getModal from './modals';
 import { getChannels } from '../store/selectors';
+import useChatApi from '../hooks/useChatApi';
+import {
+  addChannel,
+  renameChannel,
+  removeChannel,
+  setDefaultChannel,
+} from '../store/chanelsSlice';
 
 const Channels = () => {
   const { t } = useTranslation();
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
+  const api = useChatApi();
   const dispatch = useDispatch();
   const channels = useSelector(getChannels);
   const channelsNames = Object.values(channels);
   const currentChannelId = useSelector((state) => state.channels.currentChannelId);
+
+  useEffect(() => {
+    const addCallback = (newChannel) => {
+      dispatch(addChannel(newChannel));
+    };
+
+    const renameCallback = ({ id, name }) => {
+      dispatch(renameChannel({ id, changes: { name } }));
+    };
+
+    const removeCallback = (data) => {
+      dispatch(setDefaultChannel(data.id));
+      dispatch(removeChannel(data.id));
+    };    
+
+    api.addNewChannelListener(addCallback);
+
+    api.addRenameChannelListener(renameCallback);
+
+    api.addRemoveChannelListener(removeCallback);
+
+    return () => {
+      api.removeNewChannelListener(addCallback);
+      api.removeRenameChannelListener(renameCallback);
+      api.removeRemoveChannelListener(removeCallback);
+    };
+  }, [api, dispatch]);
 
   const handleClick = (type, item = null) => {
     setModalInfo({ type, item });

@@ -33,27 +33,21 @@ const LoginPage = () => {
   const formik = useFormik({
     initialValues: { username: '', password: '' },
     validationSchema: SignInSchema,
-    // eslint-disable-next-line consistent-return
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), values);
-        auth.setUserId(response);
-        auth.logIn();
+        auth.logIn(response);
         setAuthFailed(false);
-        navigate('/');
+        navigate(routes.main());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 401) {
           setAuthFailed(true);
-          auth.logOut();
-          return false;
         }
         throw error;
       }
     },
   });
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+
   const {
     handleSubmit,
     handleChange,
@@ -96,7 +90,7 @@ const LoginPage = () => {
                   <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
                 </Form.Group>
                 <Button className="w-100 mb-3" variant="primary" type="submit">
-                  Войти
+                  {t('login.enter')}
                 </Button>
               </Form>
             </Card.Body>
