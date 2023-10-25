@@ -14,9 +14,9 @@ const MessagesList = () => {
       dispatch(addMessage(message));
     };
 
-    api.addNewMessageListener(callback);
+    api.socket.on('newMessage', callback);
 
-    return () => api.removeNewMessageListener(callback);
+    return () => api.socket.off(callback);
   }, [api, dispatch]);
 
   return (

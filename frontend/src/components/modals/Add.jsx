@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
-import { addChannel } from '../../store/chanelsSlice';
 
 const Add = ({ hideModal }) => {
   const { t } = useTranslation();
@@ -16,21 +15,10 @@ const Add = ({ hideModal }) => {
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
   const channelsNames = channelsList.map(({ name }) => name);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  // useEffect(() => {
-  //   const callback = (newChannel) => {
-  //     dispatch(addChannel(newChannel));
-  //   };
-
-  //   api.addNewChannelListener(callback);
-
-  //   return api.removeNewChannelListener(callback);
-  // }, [api, dispatch]);
 
   const handleSuccess = () => {
     hideModal();

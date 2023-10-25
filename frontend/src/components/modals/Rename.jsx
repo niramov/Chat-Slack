@@ -6,15 +6,18 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { Modal, Form, Button } from 'react-bootstrap';
 import useChatApi from '../../hooks/useChatApi';
-import { getChannels } from '../../store/selectors';
+import { getChannels, getCurrentChannel } from '../../store/selectors';
 
-const Rename = ({ hideModal, modalInfo }) => {
+const Rename = ({ hideModal }) => {
   const { t } = useTranslation();
   const inputRef = useRef();
   const api = useChatApi();
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
   const channelsNames = channelsList.map(({ name }) => name);
+  const currentChannel = useSelector(getCurrentChannel);
+  console.log('CURRENTchannel', currentChannel);
+  const { id, name } = currentChannel || {};
 
   useEffect(() => {
     inputRef.current.select();
@@ -26,7 +29,7 @@ const Rename = ({ hideModal, modalInfo }) => {
   }
 
   const renameChannel = (values) => {
-    const channel = { name: values.name, id: modalInfo.item.id };
+    const channel = { name: values.name, id };
     api.renameOneChannel(channel, handleSuccess);
   };
 
@@ -38,7 +41,7 @@ const Rename = ({ hideModal, modalInfo }) => {
   });
 
   const formik = useFormik({
-    initialValues: { name: modalInfo.item.name },
+    initialValues: { name: name },
     onSubmit: (values) => renameChannel(values),
     validationSchema: renameSchema,
   });

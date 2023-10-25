@@ -1,13 +1,30 @@
+import { useSelector } from 'react-redux';
+import { getModalType } from '../../store/modalsSlice';
 import Add from './Add';
 import Remove from './Remove';
 import Rename from './Rename';
 
-const modals = {
+const ModalComponent = (props) => {
+  const { type } = props;
+
+  const modals = {
   adding: Add,
   renaming: Rename,
   removing: Remove,
 };
 
-const getModal = (type) => modals[type];
+  const Component = modals[type];
 
-export default getModal;
+  return <Component {...props} />;
+};
+
+const Modal = (props) => {
+  const type = useSelector(getModalType);
+  return (
+    <>
+      {type && <ModalComponent type={type} {...props} />}
+    </>
+  );
+};
+
+export default Modal;
