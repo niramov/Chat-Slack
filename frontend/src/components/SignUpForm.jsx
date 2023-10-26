@@ -10,8 +10,7 @@ import useAuth from '../hooks/useAuth';
 
 const SignUpForm = () => {
   const { t } = useTranslation();
-  const [authFailed, setAuthStatus] = useState(false);
-  const [isUserExist, setUserStatus] = useState(false);
+  const [signupStatus, setSignupStatus] = useState('');
   const inputRef = useRef(null);
   const auth = useAuth();
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const SignUpForm = () => {
       .required(t('schema.requried'))
       .min(3, t('schema.nameMin'))
       .max(20, t('schema.nameMax')),
-    password: Yup.string().min(6, t('schema.passwordMin')).required('schema.required'),
+    password: Yup.string().min(6, t('schema.passwordMin')).required(t('schema.required')),
     passwordConfirm: Yup.string()
       .required(t('schema.required'))
       .oneOf([Yup.ref('password'), null], t('schema.confirmPassword')),
@@ -43,12 +42,11 @@ const SignUpForm = () => {
         navigate(routes.main());
       } catch (error) {
         if (error.isAxiosError && error.response.status === 409) {
-          setUserStatus(true);
-          setAuthStatus(true);
+          setSignupStatus('userExist');
           setSubmitting(false);
         }
         if (error.isAxiosError && error.response.status === 401) {
-          setAuthStatus(true);
+          setSingupStatus('error');
         }
         throw error;
       }
@@ -75,12 +73,12 @@ const SignUpForm = () => {
           value={values.username}
           type="text"
           ref={inputRef}
-          isInvalid={(touched.username && !!errors.username) || isUserExist || authFailed}
+          isInvalid={(touched.username && !!errors.username) || signupStatus}
         />
         <Form.Label htmlFor="username">{t('signup.name')}</Form.Label>
-        <Form.Control.Feedback>
-          {errors.username ? <div>{errors.username}</div> : null}
-        </Form.Control.Feedback>
+        {(signupStatus || !!errors.username) && (<Form.Control.Feedback type="invalid" tooltip>
+          {signupStatus === 'userExist' ? t('signup.userExist') : errors.username}
+        </Form.Control.Feedback>)}
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
@@ -89,12 +87,12 @@ const SignUpForm = () => {
           onChange={handleChange}
           value={values.password}
           type="password"
-          isInvalid={(touched.password && !!errors.password) || authFailed}
+          isInvalid={(touched.password && !!errors.password) || signupStatus}
         />
         <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-        <Form.Control.Feedback type="invalid">
-          {errors.password ? <div>{errors.password}</div> : null}
-        </Form.Control.Feedback>
+        {!!errors.password && (<Form.Control.Feedback type="invalid" tooltip>
+          {errors.password}
+        </Form.Control.Feedback>)}
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
@@ -103,12 +101,12 @@ const SignUpForm = () => {
           onChange={handleChange}
           value={values.passwordConfirm}
           type="password"
-          isInvalid={(touched.passwordConfirm && !!errors.passwordConfirm) || authFailed}
+          isInvalid={(touched.passwordConfirm && !!errors.passwordConfirm) || signupStatus}
         />
         <Form.Label htmlFor="passwordConfirm">{t('signup.passwordConfirm')}</Form.Label>
-        <Form.Control.Feedback type="invalid">
-          {errors.passwordConfirm ? <div>{errors.passwordConfirm}</div> : null}
-        </Form.Control.Feedback>
+        {!!errors.passwordConfirm && (<Form.Control.Feedback type="invalid" tooltip>
+          {errors.passwordConfirm}
+        </Form.Control.Feedback>)}
       </Form.Group>
       <Button disabled={isSubmitting} className="w-100 mb-3" variant="primary" type="submit">
         {t('signup.confirm')}

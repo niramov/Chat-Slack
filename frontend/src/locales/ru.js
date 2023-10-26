@@ -54,6 +54,8 @@ const ru = {
       password: 'Пароль',
       passwordConfirm: 'Подтвердите пароль',
       confirm: 'Зарегистрироваться',
+      userExist: 'Такой пользователь уже существует',
+      networkError: 'Ошибка сети',
     },
     toast: {
       add: 'Канал создан',

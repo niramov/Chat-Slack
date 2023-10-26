@@ -14,7 +14,6 @@ const Channels = () => {
   const api = useChatApi();
   const dispatch = useDispatch();
   const channelsData = useSelector(getChannels);
-  console.log('channels in channels', channelsData);
   
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));

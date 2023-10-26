@@ -5,7 +5,6 @@ const getMessages = (state) => state.messages.entities;
 
 export const getChannels = (state) => {
   const channels = state.channels.entities;
-  console.log('selector channels', channels);
   return channels;
 };
 
