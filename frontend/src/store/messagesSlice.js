@@ -16,7 +16,7 @@ const messagesSlice = createSlice({
       .addCase(removeChannel, (state, action) => {
         const channelId = action.payload;
         const restMessages = Object.values(state.entities).filter(
-          (message) => message.channelId !== channelId
+          (message) => message.channelId !== channelId,
         );
         messagesAdapter.setAll(state, restMessages);
       })
