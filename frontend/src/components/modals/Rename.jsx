@@ -26,7 +26,7 @@ const Rename = ({ hideModal }) => {
   const handleSuccess = () => {
     hideModal();
     toast.success(t('toast.rename'));
-  }
+  };
 
   const renameChannel = (values) => {
     const channel = { name: values.name, id };
@@ -41,7 +41,7 @@ const Rename = ({ hideModal }) => {
   });
 
   const formik = useFormik({
-    initialValues: { name: name },
+    initialValues: { name },
     onSubmit: (values) => renameChannel(values),
     validationSchema: renameSchema,
   });

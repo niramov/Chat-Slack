@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useSelector } from 'react-redux';
 import { getModalType } from '../../store/modalsSlice';
 import Add from './Add';
@@ -8,10 +9,10 @@ const ModalComponent = (props) => {
   const { type } = props;
 
   const modals = {
-  adding: Add,
-  renaming: Rename,
-  removing: Remove,
-};
+    adding: Add,
+    renaming: Rename,
+    removing: Remove,
+  };
 
   const Component = modals[type];
 
@@ -20,11 +21,7 @@ const ModalComponent = (props) => {
 
 const Modal = (props) => {
   const type = useSelector(getModalType);
-  return (
-    <>
-      {type && <ModalComponent type={type} {...props} />}
-    </>
-  );
+  return (type && <ModalComponent type={type} {...props} />);
 };
 
 export default Modal;

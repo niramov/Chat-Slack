@@ -24,7 +24,7 @@ const ChatContextProvider = ({ children }) => {
         if (status === 'ok') {
           dispatch(setCurrentChannel(id));
           cb();
-        };
+        }
       });
     };
 
@@ -42,7 +42,7 @@ const ChatContextProvider = ({ children }) => {
         const { status } = response;
         if (status === 'ok') {
           cb();
-        };
+        }
       });
     };
 

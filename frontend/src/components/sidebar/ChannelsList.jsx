@@ -27,7 +27,9 @@ const ChannelsList = ({ channelsData, showModal }) => {
                 onClick={() => dispatch(setCurrentChannel(id))}
                 className={`w-100 rounded-0 text-start ${btnClasses}`}
               >
-                # {name}
+                #
+                {' '}
+                {name}
               </button>
             </li>
           );
@@ -44,7 +46,9 @@ const ChannelsList = ({ channelsData, showModal }) => {
                     dispatch(setCurrentChannel(id));
                   }}
                 >
-                  # {name}
+                  #
+                  {' '}
+                  {name}
                 </Button>
                 <Dropdown.Toggle split variant={variant} className="flex-grow-0 text-end">
                   <span className="visually-hidden">{t('channel.channelManagement')}</span>

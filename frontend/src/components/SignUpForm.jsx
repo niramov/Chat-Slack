@@ -46,21 +46,14 @@ const SignUpForm = () => {
           setSubmitting(false);
         }
         if (error.isAxiosError && error.response.status === 401) {
-          setSingupStatus('error');
+          setSignupStatus('error');
         }
         throw error;
       }
     },
   });
 
-  const {
-    handleSubmit,
-    handleChange,
-    values,
-    touched,
-    errors,
-    isSubmitting,
-  } = formik;
+  const { handleSubmit, handleChange, values, touched, errors, isSubmitting } = formik;
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -76,9 +69,11 @@ const SignUpForm = () => {
           isInvalid={(touched.username && !!errors.username) || signupStatus}
         />
         <Form.Label htmlFor="username">{t('signup.name')}</Form.Label>
-        {(signupStatus || !!errors.username) && (<Form.Control.Feedback type="invalid" tooltip>
-          {signupStatus === 'userExist' ? t('signup.userExist') : errors.username}
-        </Form.Control.Feedback>)}
+        {(signupStatus || !!errors.username) && (
+          <Form.Control.Feedback type="invalid" tooltip>
+            {signupStatus === 'userExist' ? t('signup.userExist') : errors.username}
+          </Form.Control.Feedback>
+        )}
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
@@ -90,9 +85,11 @@ const SignUpForm = () => {
           isInvalid={(touched.password && !!errors.password) || signupStatus}
         />
         <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-        {!!errors.password && (<Form.Control.Feedback type="invalid" tooltip>
-          {errors.password}
-        </Form.Control.Feedback>)}
+        {!!errors.password && (
+          <Form.Control.Feedback type="invalid" tooltip>
+            {errors.password}
+          </Form.Control.Feedback>
+        )}
       </Form.Group>
       <Form.Group className="form-floating mb-4">
         <Form.Control
@@ -104,9 +101,11 @@ const SignUpForm = () => {
           isInvalid={(touched.passwordConfirm && !!errors.passwordConfirm) || signupStatus}
         />
         <Form.Label htmlFor="passwordConfirm">{t('signup.passwordConfirm')}</Form.Label>
-        {!!errors.passwordConfirm && (<Form.Control.Feedback type="invalid" tooltip>
-          {errors.passwordConfirm}
-        </Form.Control.Feedback>)}
+        {!!errors.passwordConfirm && (
+          <Form.Control.Feedback type="invalid" tooltip>
+            {errors.passwordConfirm}
+          </Form.Control.Feedback>
+        )}
       </Form.Group>
       <Button disabled={isSubmitting} className="w-100 mb-3" variant="primary" type="submit">
         {t('signup.confirm')}

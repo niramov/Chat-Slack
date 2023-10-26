@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+/* eslint-disable no-param-reassign */
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   type: null,
@@ -14,7 +15,7 @@ const modalsSlice = createSlice({
       state.channelId = payload.id;
     },
     closeModal: (state) => {
-      state.type = null,
+      state.type = null;
       state.channelId = null;
     },
   },

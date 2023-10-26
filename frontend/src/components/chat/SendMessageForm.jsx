@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import filter from 'leo-profanity';
+import { useFormik } from 'formik';
 import { getCurrentChannelId } from '../../store/selectors';
 import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
-import { useFormik } from 'formik';
-import { addMessage } from '../../store/messagesSlice';
 
 const SendMessageForm = () => {
   const { t } = useTranslation();
@@ -24,7 +23,7 @@ const SendMessageForm = () => {
   const formik = useFormik({
     initialValues: { message: '' },
     onSubmit: ({ message }, { resetForm }) => {
-      if (!!message) {
+      if (message) {
         const data = {
           body: filter.clean(message),
           channelId,
@@ -33,7 +32,7 @@ const SendMessageForm = () => {
         api.addNewMessage(data);
         resetForm();
         inputRef.current.focus();
-      };
+      }
     },
   });
 

@@ -1,6 +1,11 @@
 import './App.css';
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import routes from './routes/routes';
 import SignInPage from './components/SignInPage.jsx';
@@ -29,11 +34,11 @@ const App = ({ socket }) => (
             <Route path={routes.main()} element={<Layout />}>
               <Route
                 index
-                element={
+                element={(
                   <PrivateRoute>
                     <MainPage />
                   </PrivateRoute>
-                }
+                )}
               />
               <Route path={routes.login()} element={<SignInPage />} />
               <Route path={routes.error()} element={<ErrorPage />} />

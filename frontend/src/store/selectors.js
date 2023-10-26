@@ -16,7 +16,7 @@ export const getCurrentChannel = (state) => {
 
 export const getCurrentChannelMessages = createSelector(
   [getCurrentChannelId, getMessages],
-  (id, messages) => Object.values(messages).filter((msg) => msg.channelId === id)
+  (id, messages) => Object.values(messages).filter((msg) => msg.channelId === id),
 );
 
 export const getChannelsName = createSelector(
@@ -25,5 +25,5 @@ export const getChannelsName = createSelector(
     const channelsList = Object.values(channels);
     const channel = channelsList.find((ch) => ch.id === id);
     return channel?.name;
-  }
+  },
 );
