@@ -16,7 +16,7 @@ const MessagesList = () => {
 
     api.socket.on('newMessage', callback);
 
-    return () => api.socket.off(callback);
+    return () => api.socket.off('newMessage', callback);
   }, [api, dispatch]);
 
   return (

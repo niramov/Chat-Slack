@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import filter from 'leo-profanity';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import { getCurrentChannelId } from '../../store/selectors';
 import useAuth from '../../hooks/useAuth';
 import useChatApi from '../../hooks/useChatApi';
@@ -20,6 +21,14 @@ const SendMessageForm = () => {
     inputRef.current.focus();
   }, []);
 
+  const cb = (response) => {
+    const { status } = response;
+    if (status !== 'ok') {
+      toast.error(t('toast.network'));
+      return;
+    }
+  };
+
   const formik = useFormik({
     initialValues: { message: '' },
     onSubmit: ({ message }, { resetForm }) => {
@@ -29,7 +38,7 @@ const SendMessageForm = () => {
           channelId,
           username,
         };
-        api.addNewMessage(data);
+        api.addNewMessage(data, cb);
         resetForm();
         inputRef.current.focus();
       }

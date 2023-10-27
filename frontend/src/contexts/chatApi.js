@@ -14,8 +14,10 @@ const ChatContextProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const value = useMemo(() => {
-    const addNewMessage = (message) => {
-      socket.emit('newMessage', message);
+    const addNewMessage = (message, cb) => {
+      socket.emit('newMessage', message, (response) => {
+        cb(response);
+      })
     };
 
     const addNewChannel = (channel, cb) => {

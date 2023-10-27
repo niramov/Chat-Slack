@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import useChatApi from '../../hooks/useChatApi';
 import { getCurrentChannel } from '../../store/selectors';
 
-const Rename = ({ hideModal }) => {
+const Remove = ({ hideModal }) => {
   const { t } = useTranslation();
   const api = useChatApi();
   const currentChannel = useSelector(getCurrentChannel);
@@ -52,4 +52,4 @@ const Rename = ({ hideModal }) => {
   );
 };
 
-export default Rename;
+export default Remove;
