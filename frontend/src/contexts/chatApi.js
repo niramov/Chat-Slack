@@ -14,7 +14,7 @@ const ChatContextProvider = ({ children }) => {
     const addNewMessage = (message, cb, resetForm) => {
       socket.emit('newMessage', message, (response) => {
         cb(response, resetForm);
-      })
+      });
     };
 
     const addNewChannel = (channel, cb) => {
@@ -25,7 +25,7 @@ const ChatContextProvider = ({ children }) => {
 
     const renameOneChannel = (channel, cb) => {
       socket.emit('renameChannel', channel, (response) => {
-          cb(response);
+        cb(response);
       });
     };
 

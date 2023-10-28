@@ -16,14 +16,14 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
- const getAuthHeader = () => {
-   const user = JSON.parse(localStorage.getItem('userId'));
+  const getAuthHeader = () => {
+    const user = JSON.parse(localStorage.getItem('userId'));
 
-   if (user && user?.token) {
-     return { Authorization: `Bearer ${user?.token}` };
-   }
-   return {};
- };
+    if (user && user?.token) {
+      return { Authorization: `Bearer ${user?.token}` };
+    }
+    return {};
+  };
 
   const getUserName = () => {
     const userName = JSON.parse(localStorage.getItem('userId'));
@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
       getUserName,
       getAuthHeader,
     }),
-    [loggedIn],
+    [loggedIn]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
