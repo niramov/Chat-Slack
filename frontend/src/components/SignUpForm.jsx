@@ -19,7 +19,7 @@ const SignUpForm = () => {
     inputRef.current.focus();
   }, []);
 
-  const SignUpSchema = Yup.object().shape({
+  const signUpSchema = Yup.object().shape({
     username: Yup.string()
       .required(t('schema.requried'))
       .min(3, t('schema.nameMin'))
@@ -32,12 +32,10 @@ const SignUpForm = () => {
 
   const formik = useFormik({
     initialValues: { username: '', password: '', passwordConfirm: '' },
-    validationSchema: SignUpSchema,
+    validationSchema: signUpSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
-        const { username, password } = values;
-        const newUserData = { username, password };
-        const response = await axios.post(routes.signUpPath(), newUserData);
+        const response = await axios.post(routes.signUpPath(), values);
         auth.logIn(response);
         navigate(routes.main());
       } catch (error) {

@@ -21,12 +21,14 @@ const SendMessageForm = () => {
     inputRef.current.focus();
   }, []);
 
-  const cb = (response) => {
+  const handleSuccess = (response, resetForm) => {
     const { status } = response;
     if (status !== 'ok') {
       toast.error(t('toast.network'));
       return;
     }
+    resetForm();
+    inputRef.current.focus();
   };
 
   const formik = useFormik({
@@ -38,9 +40,7 @@ const SendMessageForm = () => {
           channelId,
           username,
         };
-        api.addNewMessage(data, cb);
-        resetForm();
-        inputRef.current.focus();
+        api.addNewMessage(data, handleSuccess, resetForm);
       }
     },
   });

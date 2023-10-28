@@ -3,48 +3,35 @@ import React, {
   useContext,
   useMemo,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import SocketContext from './socketContext';
-import { setCurrentChannel } from '../store/chanelsSlice';
 
 export const ChatApiContext = createContext();
 
 const ChatContextProvider = ({ children }) => {
   const socket = useContext(SocketContext);
-  const dispatch = useDispatch();
 
   const value = useMemo(() => {
-    const addNewMessage = (message, cb) => {
+    const addNewMessage = (message, cb, resetForm) => {
       socket.emit('newMessage', message, (response) => {
-        cb(response);
+        cb(response, resetForm);
       })
     };
 
     const addNewChannel = (channel, cb) => {
       socket.emit('newChannel', channel, (response) => {
-        const { status, data: { id } } = response;
-        if (status === 'ok') {
-          dispatch(setCurrentChannel(id));
-          cb();
-        }
+        cb(response);
       });
     };
 
     const renameOneChannel = (channel, cb) => {
       socket.emit('renameChannel', channel, (response) => {
-        const { status } = response;
-        if (status === 'ok') {
-          cb();
-        }
+          cb(response);
       });
     };
 
     const removeOneChannel = (channel, cb) => {
       socket.emit('removeChannel', { id: channel.id }, (response) => {
-        const { status } = response;
-        if (status === 'ok') {
-          cb();
-        }
+        cb(response);
       });
     };
 
@@ -55,7 +42,7 @@ const ChatContextProvider = ({ children }) => {
       removeOneChannel,
       socket,
     };
-  }, [socket, dispatch]);
+  }, [socket]);
 
   return <ChatApiContext.Provider value={value}>{children}</ChatApiContext.Provider>;
 };

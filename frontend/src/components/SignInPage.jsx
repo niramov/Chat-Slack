@@ -21,18 +21,18 @@ const LoginPage = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  // const location = useLocation();
+
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const SignInSchema = Yup.object().shape({
+  const signInSchema = Yup.object().shape({
     username: Yup.string().required(t('schema.required')),
     password: Yup.string().required(t('schema.required')),
   });
 
   const formik = useFormik({
     initialValues: { username: '', password: '' },
-    validationSchema: SignInSchema,
+    validationSchema: signInSchema,
     onSubmit: async (values) => {
       try {
         const response = await axios.post(routes.loginPath(), values);

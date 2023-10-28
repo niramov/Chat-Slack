@@ -3,12 +3,11 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import { Modal, Form, Button } from 'react-bootstrap';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels, getCurrentChannel } from '../../store/selectors';
 
-const Rename = ({ hideModal }) => {
+const Rename = ({ hideModal, handleSuccess }) => {
   const { t } = useTranslation();
   const inputRef = useRef();
   const api = useChatApi();
@@ -16,17 +15,11 @@ const Rename = ({ hideModal }) => {
   const channelsList = Object.values(channels);
   const channelsNames = channelsList.map(({ name }) => name);
   const currentChannel = useSelector(getCurrentChannel);
-  console.log('CURRENTchannel', currentChannel);
   const { id, name } = currentChannel || {};
 
   useEffect(() => {
     inputRef.current.select();
   }, []);
-
-  const handleSuccess = () => {
-    hideModal();
-    toast.success(t('toast.rename'));
-  };
 
   const renameChannel = (values) => {
     const channel = { name: values.name, id };

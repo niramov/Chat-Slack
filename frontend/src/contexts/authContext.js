@@ -6,6 +6,7 @@ const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const logIn = (response) => {
+    console.log('response.data', response.data);
     localStorage.setItem('userId', JSON.stringify(response.data));
     setLoggedIn(true);
   };
@@ -15,9 +16,14 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
-  // const setUserId = (response) => {
-  //   localStorage.setItem('userId', JSON.stringify(response.data));
-  // };
+ const getAuthHeader = () => {
+   const user = JSON.parse(localStorage.getItem('userId'));
+
+   if (user && user?.token) {
+     return { Authorization: `Bearer ${user?.token}` };
+   }
+   return {};
+ };
 
   const getUserName = () => {
     const userName = JSON.parse(localStorage.getItem('userId'));
@@ -29,8 +35,8 @@ const AuthProvider = ({ children }) => {
       loggedIn,
       logOut,
       logIn,
-      // setUserId,
       getUserName,
+      getAuthHeader,
     }),
     [loggedIn],
   );

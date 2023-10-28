@@ -7,18 +7,23 @@ import useAuth from '../hooks/useAuth';
 import Channels from './sidebar/Channels';
 import Chat from './chat/Chat';
 import { getChatData, getError } from '../store/chanelsSlice';
+import routes from '../routes/routes';
 
 const MainPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const auth = useAuth();
   const dispatch = useDispatch();
+  const headers = auth.getAuthHeader();
   const error = useSelector(getError);
-  console.log('error', error);
 
   useEffect(() => {
-    dispatch(getChatData());
-  }, [error, dispatch, t, navigate, auth]);
+    if (error) {
+      auth.logOut();
+      navigate(routes.login());
+    }
+    dispatch(getChatData(headers));
+  }, [dispatch, t, navigate, auth, headers, error]);
 
   return (
     <Container className="container vh-100 rounded shadow">

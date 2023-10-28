@@ -1,11 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import getAuthHeader from '../utils/getAuthHeader';
 import routes from '../routes/routes';
 
-export const getChatData = createAsyncThunk('channels/getChatData', async () => {
-  const headers = getAuthHeader();
+export const getChatData = createAsyncThunk('channels/getChatData', async (headers) => {
   const response = await axios.get(routes.usersPath(), { headers });
   return response.data;
 });
@@ -21,7 +19,10 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    addChannel: channelsAdapter.addOne,
+    addChannel: (state, action) => {
+      channelsAdapter.addOne(state, action.payload);
+      state.currentChannelId = action.payload.id;
+    },
     addChannels: channelsAdapter.addMany,
     setCurrentChannel: (state, { payload }) => {
       state.currentChannelId = payload;
@@ -43,6 +44,7 @@ const channelsSlice = createSlice({
     builder
       .addCase(getChatData.fulfilled, (state, action) => {
         channelsAdapter.addMany(state, action.payload.channels);
+        state.error = null;
       })
       .addCase(getChatData.rejected, (state, action) => {
         state.error = action.error;
