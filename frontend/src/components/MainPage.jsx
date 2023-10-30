@@ -19,6 +19,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (error) {
+      console.log('ERRORRR', error);
       auth.logOut();
       navigate(routes.login());
     }

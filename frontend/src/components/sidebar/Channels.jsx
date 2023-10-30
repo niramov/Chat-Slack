@@ -36,6 +36,7 @@ const Channels = () => {
 
   useEffect(() => {
     const callback = (message) => {
+      console.log('recieved data', message);
       dispatch(addMessage(message));
     };
 

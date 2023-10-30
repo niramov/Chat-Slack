@@ -3,31 +3,39 @@ import React, { useState, createContext, useMemo } from 'react';
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState('');
 
   const logIn = (response) => {
-    console.log('response.data', response.data);
-    localStorage.setItem('userId', JSON.stringify(response.data));
-    setLoggedIn(true);
+    const userName = response.data.username;
+    setLoggedIn(userName);
+    const user = JSON.parse(localStorage.getItem(`userId_${userName}`)) || {};
+    user[userName] = response.data;
+    console.log('user', user);
+    localStorage.setItem(`userId_${userName}`, JSON.stringify(user));
+    console.log('getItem', localStorage.getItem(`userId_${userName}`));
   };
 
   const logOut = () => {
-    localStorage.removeItem('userId');
-    setLoggedIn(false);
+    localStorage.removeItem(`userId_${loggedIn}`);
+    setLoggedIn('');
   };
 
   const getAuthHeader = () => {
-    const user = JSON.parse(localStorage.getItem('userId'));
+    console.log('loggedIn1', loggedIn);
+    const user = JSON.parse(localStorage.getItem(`userId_${loggedIn}`));
+    console.log('USER!!!', user);
 
-    if (user && user?.token) {
-      return { Authorization: `Bearer ${user?.token}` };
+    if (user && user?.[loggedIn].token) {
+      return { Authorization: `Bearer ${user?.[loggedIn].token}` };
     }
     return {};
   };
 
   const getUserName = () => {
-    const userName = JSON.parse(localStorage.getItem('userId'));
-    return userName?.username;
+    console.log('loggedIn', loggedIn);
+    const userName = JSON.parse(localStorage.getItem(`userId_${loggedIn}`));
+    console.log('current username', userName);
+    return userName?.[loggedIn].username;
   };
 
   const value = useMemo(
@@ -38,7 +46,7 @@ const AuthProvider = ({ children }) => {
       getUserName,
       getAuthHeader,
     }),
-    [loggedIn],
+    [loggedIn, getUserName, logOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
