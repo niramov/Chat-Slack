@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import useChatApi from '../../hooks/useChatApi';
 import { getCurrentChannel } from '../../store/selectors';
 
@@ -13,6 +14,7 @@ const Remove = ({ hideModal, handleSuccess }) => {
 
   const removeChannel = () => {
     api.removeOneChannel({ id }, handleSuccess);
+    toast.success(t('toast.remove'));
   };
 
   return (

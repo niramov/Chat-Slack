@@ -19,7 +19,7 @@ const Layout = () => {
         <Container>
           <Navbar.Brand href="/">{t('nav.logo')}</Navbar.Brand>
           <Navbar.Collapse className="justify-content-end" />
-          {auth.loggedIn ? (
+          {auth.currentUser ? (
             <Button onClick={logOutUser}>{t('nav.exit')}</Button>
           ) : (
             <Button onClick={() => navigate(routes.login())}>{t('nav.enter')}</Button>

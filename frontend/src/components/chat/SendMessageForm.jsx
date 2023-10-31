@@ -15,7 +15,6 @@ const SendMessageForm = () => {
   const api = useChatApi();
   const auth = useAuth();
   const username = auth.getUserName();
-  console.log('userName', username);
   const channelId = useSelector(getCurrentChannelId);
 
   useEffect(() => {
@@ -41,7 +40,6 @@ const SendMessageForm = () => {
           channelId,
           username,
         };
-        console.log('sended data', data);
         api.addNewMessage(data, handleSuccess, resetForm);
       }
     },

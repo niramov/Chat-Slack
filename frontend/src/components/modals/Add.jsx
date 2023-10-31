@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels } from '../../store/selectors';
+import useAuth from '../../hooks/useAuth';
 
 const Add = ({ hideModal, handleSuccess }) => {
   const { t } = useTranslation();
@@ -14,14 +16,17 @@ const Add = ({ hideModal, handleSuccess }) => {
   const channels = useSelector(getChannels);
   const channelsList = Object.values(channels);
   const channelsNames = channelsList.map(({ name }) => name);
+  const auth = useAuth();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   const sendChannelName = (values) => {
-    const channelName = { name: values.name };
+    const userName = auth.currentUser;
+    const channelName = { name: values.name, userName };
     api.addNewChannel(channelName, handleSuccess);
+    toast.success(t('toast.add'));
   };
 
   const addChannelSchema = Yup.object().shape({

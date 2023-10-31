@@ -22,7 +22,7 @@ import useAuth from './hooks/useAuth';
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
 
-  return auth.loggedIn ? children : <Navigate to={routes.login()} />;
+  return auth.currentUser ? children : <Navigate to={routes.login()} />;
 };
 
 const App = ({ socket }) => (

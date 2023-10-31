@@ -21,7 +21,7 @@ const channelsSlice = createSlice({
   reducers: {
     addChannel: (state, action) => {
       channelsAdapter.addOne(state, action.payload);
-      state.currentChannelId = action.payload.id;
+      // state.currentChannelId = action.payload.id;
     },
     addChannels: channelsAdapter.addMany,
     setCurrentChannel: (state, { payload }) => {

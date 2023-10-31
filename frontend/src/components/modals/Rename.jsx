@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Modal, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import useChatApi from '../../hooks/useChatApi';
 import { getChannels, getCurrentChannel } from '../../store/selectors';
 
@@ -24,6 +25,7 @@ const Rename = ({ hideModal, handleSuccess }) => {
   const renameChannel = (values) => {
     const channel = { name: values.name, id };
     api.renameOneChannel(channel, handleSuccess);
+    toast.success(t('toast.rename'));
   };
 
   const renameSchema = Yup.object().shape({

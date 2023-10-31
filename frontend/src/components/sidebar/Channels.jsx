@@ -5,17 +5,19 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { getChannels } from '../../store/selectors';
 import useChatApi from '../../hooks/useChatApi';
-import { addChannel, renameChannel, removeChannel } from '../../store/chanelsSlice';
+import { addChannel, renameChannel, removeChannel, setCurrentChannel } from '../../store/chanelsSlice';
 import Modal from '../modals/index';
 import { openModal, closeModal } from '../../store/modalsSlice';
 import { addMessage } from '../../store/messagesSlice';
 import ChannelsList from './ChannelsList';
+import useAuth from '../../hooks/useAuth';
 
 const Channels = () => {
   const { t } = useTranslation();
   const api = useChatApi();
   const dispatch = useDispatch();
   const channelsData = useSelector(getChannels);
+  const auth = useAuth();
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));
@@ -36,23 +38,23 @@ const Channels = () => {
 
   useEffect(() => {
     const callback = (message) => {
-      console.log('recieved data', message);
       dispatch(addMessage(message));
     };
 
     const addCallback = (newChannel) => {
+      const { userName } = newChannel;
       dispatch(addChannel(newChannel));
-      toast.success(t('toast.add'));
+      if (auth.currentUser === userName) {
+        dispatch(setCurrentChannel(newChannel.id));
+      }
     };
 
     const renameCallback = ({ id, name }) => {
       dispatch(renameChannel({ id, changes: { name } }));
-      toast.success(t('toast.rename'));
     };
 
     const removeCallback = (data) => {
       dispatch(removeChannel(data.id));
-      toast.success(t('toast.remove'));
     };
 
     api.socket.on('newMessage', callback);
@@ -66,7 +68,7 @@ const Channels = () => {
       api.socket.off('renameChannel', renameCallback);
       api.socket.off('removeChannel', removeCallback);
     };
-  }, [api, dispatch, t]);
+  }, [api, dispatch, t, auth.currentUser]);
 
   return (
     <Col className="col-4 col-md-3 border-end px-0 bg-light flex-column d-flex">
