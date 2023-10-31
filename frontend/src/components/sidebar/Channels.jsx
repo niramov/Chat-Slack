@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { getChannels } from '../../store/selectors';
 import useChatApi from '../../hooks/useChatApi';
-import { addChannel, renameChannel, removeChannel, setCurrentChannel } from '../../store/chanelsSlice';
+import {
+  addChannel,
+  renameChannel,
+  removeChannel,
+  setCurrentChannel,
+} from '../../store/chanelsSlice';
 import Modal from '../modals/index';
 import { openModal, closeModal } from '../../store/modalsSlice';
 import { addMessage } from '../../store/messagesSlice';
